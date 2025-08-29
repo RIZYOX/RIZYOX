@@ -25,7 +25,7 @@
 ---
 
 ## 📦 Projets mis en avant
-- <a href="https://github.com/RIZYOX/EZ-VPS-BY-RIZYOX"><b>EZ-VPS-BY-RIZYOX</b></a> — Bot Discord pour créer/gérer des VPS sur Proxmox
+- <a href="[https://github.com/RIZYOX/EZ-VPS-BY-RIZYOX](https://github.com/RIZYOX/Proxmox-VPS-Bot)"><b>EZ-VPS-BY-RIZYOX</b></a> — Bot Discord pour créer/gérer des VPS sur Proxmox
 
 ---
 
