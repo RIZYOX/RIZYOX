@@ -9,12 +9,21 @@
 
 <!-- TYPING SVG -->
 <a href="https://rizyox.fr" target="_blank">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=3000&pause=900&color=60A5FA&center=true&vCenter=true&width=680&lines=18+y%2Fo+French+IT+Student+%F0%9F%87%AB%F0%9F%87%B7;Cloud+%2F+Proxmox+VE+%2F+Docker+%2F+DevOps;Vanilla+PHP+%7C+Node.js+%7C+Python+%7C+TypeScript;Building+reliable+infrastructure+from+scratch" alt="Typing"/>
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=3000&pause=900&color=60A5FA&center=true&vCenter=true&width=680&lines=18+y%2Fo+French+IT+Student;Cloud+Infrastructure+%2F+Proxmox+VE+%2F+Docker;Vanilla+PHP+%7C+Node.js+%7C+Python+%7C+TypeScript;Building+reliable+systems+from+scratch" alt="Typing"/>
 </a>
+
+<br/>
+
+<!-- PROFILE VIEWS COUNTER -->
+<img src="https://komarev.com/ghpvc/?username=RIZYOX&style=for-the-badge&color=1e3a5f&label=PROFILE+VIEWS" alt="Profile Views"/>
+&nbsp;
+<img src="https://img.shields.io/github/followers/RIZYOX?style=for-the-badge&color=3b1f6b&label=FOLLOWERS&logo=github&logoColor=white" alt="Followers"/>
+&nbsp;
+<img src="https://img.shields.io/github/stars/RIZYOX?style=for-the-badge&color=1e3a5f&label=STARS&logo=github&logoColor=white" alt="Stars"/>
 
 <br/><br/>
 
-<!-- BADGES -->
+<!-- LINKS -->
 <a href="https://rizyox.fr" target="_blank">
   <img src="https://img.shields.io/badge/PORTFOLIO-rizyox.fr-2563eb?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/>
 </a>
@@ -42,12 +51,12 @@
 
 Hey, I'm **RIZYOX** — 18-year-old French IT student and self-taught developer focused on **cloud infrastructure, homelab virtualization, and full-stack engineering**.
 
-- 🇫🇷 **Profile :** 18 y/o French IT Student & Autodidact Developer
-- ☁️ **Core Focus :** Cloud Infrastructure, Virtualization (Proxmox VE) & Systems Architecture
-- 🐧 **Homelab & SysAdmin :** Linux (Debian, Parrot OS), Docker, cloud-init automations
-- 💻 **Dev :** Vanilla PHP, Node.js, TypeScript, Python, Discord bots
-- ⚔️ **Anime Realm :** SAO · Mushoku Tensei · Tensura · Witch Hat Atelier
-- 🌐 **Portfolio :** [rizyox.fr](https://rizyox.fr)
+- **Profile** — 18 y/o French IT Student & Autodidact Developer
+- **Core Focus** — Cloud Infrastructure, Virtualization (Proxmox VE) & Systems Architecture
+- **Homelab & SysAdmin** — Linux (Debian, Parrot OS), Docker, cloud-init automations
+- **Dev** — Vanilla PHP, Node.js, TypeScript, Python, Discord bots
+- **Anime Realm** — SAO · Mushoku Tensei · Tensura · Witch Hat Atelier
+- **Portfolio** — [rizyox.fr](https://rizyox.fr)
 
 > *"Stay curious, automate the repetitive, build reliable systems."*
 
@@ -203,6 +212,22 @@ Workshop appointment and repair tracking software — slot reservation, customer
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=RIZYOX&theme=tokyonight&hide_border=true&background=0d1117&ring=60a5fa&fire=f97316&currStreakLabel=60a5fa" height="155" alt="GitHub Streak"/>
 </a>
 
+<br/>
+
+<!-- ACTIVITY GRAPH -->
+<a href="https://github.com/RIZYOX">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=RIZYOX&theme=tokyo-night&hide_border=true&bg_color=0d1117&color=60a5fa&line=a855f7&point=38bdf8&area=true&area_color=1e3a5f" width="95%" alt="Activity Graph"/>
+</a>
+
+<br/><br/>
+
+<!-- CONTRIBUTION SNAKE -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/github-snake-dark.svg"/>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/github-snake.svg"/>
+  <img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/github-snake-dark.svg" width="95%" alt="Contribution Snake"/>
+</picture>
+
 <br/><br/>
 
 <img src="./assets/anime/kirito.gif" width="420px" style="border-radius: 14px;" alt="Kirito — SAO"/>
@@ -253,7 +278,7 @@ Workshop appointment and repair tracking software — slot reservation, customer
 <!-- ══════════════════════════════════════════════════════════ -->
 <!--  06 — CONNECT                                             -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/connect.svg" width="100%" alt="Connect With Me"/>
+<img src="./assets/headers/connect.svg" width="100%" alt="Connect"/>
 
 <div align="center">
 <br/>
