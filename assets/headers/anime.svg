@@ -1,0 +1,30 @@
+<svg width="480" height="52" viewBox="0 0 480 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad_ani" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8">
+        <animate attributeName="stop-color" values="#38bdf8;#818cf8;#c084fc;#38bdf8" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#818cf8">
+        <animate attributeName="stop-color" values="#818cf8;#c084fc;#38bdf8;#818cf8" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <linearGradient id="lineGrad_ani" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#818cf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title Text with Animated Gradient -->
+  <text x="2" y="24" fill="url(#grad_ani)" font-family="'Space Grotesk', -apple-system, sans-serif" font-size="20" font-weight="800" letter-spacing="1.5">
+    // 05 — FAVORITE ANIME UNIVERSES
+  </text>
+
+  <!-- Subtitle Text -->
+  <text x="2" y="42" fill="#64748b" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" letter-spacing="2">
+    INSPIRATION & WORLDBUILDING
+  </text>
+
+  <!-- Glowing Underline Accent Bar -->
+  <rect x="0" y="48" width="280" height="2" fill="url(#lineGrad_ani)" rx="1"/>
+</svg>

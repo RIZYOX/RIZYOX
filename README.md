@@ -1,8 +1,13 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1e293b,50:2563eb,100:0284c7&height=220&section=header&text=RIZYOX&fontSize=56&fontColor=ffffff&fontAlignY=36&animation=twinkling&desc=INFRASTRUCTURE%20%26%20FULL-STACK%20DEVELOPER&descSize=16&descColor=93c5fd&descAlignY=60" width="100%" alt="RIZYOX Header"/>
-
-<br/>
-
 <div align="center">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ANIMATED HEADER SVG (LOCALLY HOSTED, 100% RELIABLE) -->
+<!-- ═══════════════════════════════════════════════════ -->
+<a href="https://rizyox.fr" target="_blank">
+  <img src="./assets/anime/header.svg" width="100%" alt="RIZYOX Header" />
+</a>
+
+<br/><br/>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- HERO BANNER (SWORD ART ONLINE — AINCRAD)            -->
@@ -43,7 +48,7 @@
 <table>
 <tr>
 <td width="62%" valign="top">
-<h3>// 01 — ABOUT ME</h3>
+<img src="./assets/headers/about.svg" width="380" alt="About Me"/>
 <p>Hey there, I'm <b>RIZYOX</b>. 18-year-old French IT student and self-taught enthusiast focused on <b>cloud infrastructure, homelab virtualization, and full-stack software development</b>.</p>
 <ul>
 <li><b>Profile:</b> 18 y/o French IT Student & Autodidact Developer</li>
@@ -77,7 +82,7 @@
 <sub><b>Roxy Migurdia</b> // Mushoku Tensei</sub>
 </td>
 <td width="62%" valign="top">
-<h3>// 02 — TECH STACK & ARSENAL</h3>
+<img src="./assets/headers/skills.svg" width="380" alt="Tech Stack"/>
 <p>Languages, runtimes, and infrastructure technologies utilized across my projects:</p>
 <div align="center">
 <a href="https://skillicons.dev">
@@ -108,7 +113,7 @@
 <!-- 03 — FEATURED PROJECTS                              -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<h2>// 03 — FEATURED PROJECTS</h2>
+<img src="./assets/headers/projects.svg" width="380" alt="Featured Projects"/>
 <p>Production platforms, internal tools and automation systems deployed in real-world environments.</p>
 </div>
 
@@ -171,7 +176,7 @@
 <!-- 04 — GITHUB ANALYTICS                               -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<h2>// 04 — GITHUB ANALYTICS</h2>
+<img src="./assets/headers/stats.svg" width="380" alt="GitHub Analytics"/>
 <p>Live commit metrics, streaks and language composition.</p>
 
 <p align="center">
@@ -202,7 +207,7 @@
 <!-- 05 — FAVORITE ANIME UNIVERSES                       -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<h2>// 05 — FAVORITE ANIME UNIVERSES</h2>
+<img src="./assets/headers/anime.svg" width="380" alt="Favorite Anime Universes"/>
 <p>Stories, worldbuilding, and fantasy that inspire my imagination.</p>
 </div>
 
@@ -243,7 +248,7 @@
 <!-- 06 — CONNECT                                        -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<h2>// 06 — CONNECT</h2>
+<img src="./assets/headers/connect.svg" width="380" alt="Connect"/>
 <p>Available for technical discussions, infrastructure questions, and collaborative projects.</p>
 
 <p>
@@ -265,5 +270,5 @@
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- FOOTER WAVE                                         -->
 <!-- ═══════════════════════════════════════════════════ -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1e293b,50:2563eb,100:0284c7&height=100&section=footer" width="100%" alt="Footer Wave"/>
+<img src="./assets/headers/footer.svg" width="100%" alt="Footer Wave"/>
 </div>
