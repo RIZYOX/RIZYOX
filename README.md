@@ -1,22 +1,26 @@
 <div align="center">
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- HERO BANNER (SWORD ART ONLINE — AINCRAD)            -->
+<!-- TOP ANIMATED WAVING CAPSULE HEADER                  -->
 <!-- ═══════════════════════════════════════════════════ -->
 <a href="https://rizyox.fr" target="_blank">
-  <img src="./assets/anime/sao_banner.gif" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);" alt="Sword Art Online Aincrad Banner" />
-</a>
-
-<br/><br/>
-
-<a href="https://rizyox.fr" target="_blank">
-  <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&weight=700&size=28&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&multiline=false&width=450&lines=RIZYOX;INFRASTRUCTURE+%26+DEV" alt="RIZYOX Header" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1120,35:1e3a8a,70:312e81,100:0b1120&height=210&section=header&text=RIZYOX&fontSize=56&fontColor=ffffff&fontAlignY=36&animation=twinkling&desc=INFRASTRUCTURE%20%26%20FULL-STACK%20DEVELOPER&descSize=16&descColor=60a5fa&descAlignY=60" width="100%" alt="RIZYOX Animated Header" />
 </a>
 
 <br/>
 
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- HERO BANNER (SWORD ART ONLINE — AINCRAD)            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<p align="center">
+  <a href="https://rizyox.fr" target="_blank">
+    <img src="./assets/anime/sao_banner.gif" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);" alt="Sword Art Online Aincrad Banner" />
+  </a>
+</p>
+
+<!-- TYPING SVG BADGE -->
 <a href="https://rizyox.fr" target="_blank">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=15&duration=3000&pause=1000&color=60A5FA&center=true&vCenter=true&multiline=false&width=620&lines=18+y%2Fo+French+IT+Student;Cloud+Virtualization%2C+DevOps+%26+Automation;Proxmox+VE+%7C+Docker+%7C+Debian+%7C+Full-Stack;Welcome+to+my+workspace" alt="Typing Subtitle" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=16&duration=3000&pause=1000&color=60A5FA&center=true&vCenter=true&multiline=false&width=640&lines=18+y%2Fo+French+IT+Student;Cloud+Virtualization%2C+DevOps+%26+Automation;Proxmox+VE+%7C+Docker+%7C+Debian+%7C+Full-Stack;Welcome+to+my+digital+workspace" alt="Typing Subtitle" />
 </a>
 
 <br/><br/>
@@ -266,5 +270,5 @@
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- FOOTER WAVE                                         -->
 <!-- ═══════════════════════════════════════════════════ -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b0f19,50:1e293b,100:0b0f19&height=100&section=footer" width="100%" alt="Footer Wave"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1120,35:1e3a8a,70:312e81,100:0b1120&height=100&section=footer" width="100%" alt="Footer Wave"/>
 </div>
