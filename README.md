@@ -1,13 +1,8 @@
-<div align="center">
-
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- TOP ANIMATED WAVING CAPSULE HEADER                  -->
-<!-- ═══════════════════════════════════════════════════ -->
-<a href="https://rizyox.fr" target="_blank">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1120,35:1e3a8a,70:312e81,100:0b1120&height=210&section=header&text=RIZYOX&fontSize=56&fontColor=ffffff&fontAlignY=36&animation=twinkling&desc=INFRASTRUCTURE%20%26%20FULL-STACK%20DEVELOPER&descSize=16&descColor=60a5fa&descAlignY=60" width="100%" alt="RIZYOX Animated Header" />
-</a>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1e293b,50:2563eb,100:0284c7&height=220&section=header&text=RIZYOX&fontSize=56&fontColor=ffffff&fontAlignY=36&animation=twinkling&desc=INFRASTRUCTURE%20%26%20FULL-STACK%20DEVELOPER&descSize=16&descColor=93c5fd&descAlignY=60" width="100%" alt="RIZYOX Header"/>
 
 <br/>
+
+<div align="center">
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- HERO BANNER (SWORD ART ONLINE — AINCRAD)            -->
@@ -270,5 +265,5 @@
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- FOOTER WAVE                                         -->
 <!-- ═══════════════════════════════════════════════════ -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1120,35:1e3a8a,70:312e81,100:0b1120&height=100&section=footer" width="100%" alt="Footer Wave"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1e293b,50:2563eb,100:0284c7&height=100&section=footer" width="100%" alt="Footer Wave"/>
 </div>
