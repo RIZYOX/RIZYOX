@@ -14,12 +14,14 @@
 
 <br/>
 
-<!-- PROFILE VIEWS COUNTER -->
-<img src="https://komarev.com/ghpvc/?username=RIZYOX&style=flat-square&color=1e3a5f&label=Profile+Views" alt="Profile Views"/>
+<!-- PROFILE COUNTERS -->
+<a href="https://github.com/RIZYOX">
+  <img src="https://komarev.com/ghpvc/?username=RIZYOX&color=1e3a5f&style=flat-square" alt="Profile Views"/>
+</a>
 &nbsp;
-<img src="https://img.shields.io/github/followers/RIZYOX?style=flat-square&color=3b1f6b&label=Followers&logo=github&logoColor=white" alt="Followers"/>
-&nbsp;
-<img src="https://img.shields.io/github/stars/RIZYOX?affiliations=OWNER&style=flat-square&color=1e3a5f&label=Stars&logo=github&logoColor=white" alt="Stars"/>
+<a href="https://github.com/RIZYOX?tab=followers">
+  <img src="https://img.shields.io/github/followers/RIZYOX?label=Followers&style=flat-square&color=3b1f6b&logo=github&logoColor=white" alt="Followers"/>
+</a>
 
 <br/><br/>
 
