@@ -15,11 +15,11 @@
 <br/>
 
 <!-- PROFILE VIEWS COUNTER -->
-<img src="https://komarev.com/ghpvc/?username=RIZYOX&style=for-the-badge&color=1e3a5f&label=PROFILE+VIEWS" alt="Profile Views"/>
+<img src="https://komarev.com/ghpvc/?username=RIZYOX&style=flat-square&color=1e3a5f&label=Profile+Views" alt="Profile Views"/>
 &nbsp;
-<img src="https://img.shields.io/github/followers/RIZYOX?style=for-the-badge&color=3b1f6b&label=FOLLOWERS&logo=github&logoColor=white" alt="Followers"/>
+<img src="https://img.shields.io/github/followers/RIZYOX?style=flat-square&color=3b1f6b&label=Followers&logo=github&logoColor=white" alt="Followers"/>
 &nbsp;
-<img src="https://img.shields.io/github/stars/RIZYOX?style=for-the-badge&color=1e3a5f&label=STARS&logo=github&logoColor=white" alt="Stars"/>
+<img src="https://img.shields.io/github/stars/RIZYOX?affiliations=OWNER&style=flat-square&color=1e3a5f&label=Stars&logo=github&logoColor=white" alt="Stars"/>
 
 <br/><br/>
 
