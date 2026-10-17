@@ -16,7 +16,7 @@
 
 <!-- PROFILE COUNTERS -->
 <a href="https://github.com/RIZYOX">
-  <img src="https://komarev.com/ghpvc/?username=RIZYOX&color=1e3a5f&style=flat-square" alt="Profile Views"/>
+  <img src="https://views.igorkowalczyk.dev/api/badge/RIZYOX?style=flat&color=1e3a5f&label=Profile+Views" alt="Profile Views"/>
 </a>
 &nbsp;
 <a href="https://github.com/RIZYOX?tab=followers">
