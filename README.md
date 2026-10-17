@@ -1,10 +1,10 @@
 <div align="center">
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- ANIMATED HEADER SVG (LOCALLY HOSTED, 100% RELIABLE) -->
+<!-- ANIMATED HEADER SVG (DIRECT RAW GITHUB URL)         -->
 <!-- ═══════════════════════════════════════════════════ -->
 <a href="https://rizyox.fr" target="_blank">
-  <img src="./assets/anime/header.svg" width="100%" alt="RIZYOX Header" />
+  <img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/header.svg" width="100%" alt="RIZYOX Header" />
 </a>
 
 <br/><br/>
@@ -14,7 +14,7 @@
 <!-- ═══════════════════════════════════════════════════ -->
 <p align="center">
   <a href="https://rizyox.fr" target="_blank">
-    <img src="./assets/anime/sao_banner.gif" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);" alt="Sword Art Online Aincrad Banner" />
+    <img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/sao_banner.gif" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);" alt="Sword Art Online Aincrad Banner" />
   </a>
 </p>
 
@@ -48,7 +48,7 @@
 <table>
 <tr>
 <td width="62%" valign="top">
-<img src="./assets/headers/about.svg" width="380" alt="About Me"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/about.svg" width="380" alt="About Me"/>
 <p>Hey there, I'm <b>RIZYOX</b>. 18-year-old French IT student and self-taught enthusiast focused on <b>cloud infrastructure, homelab virtualization, and full-stack software development</b>.</p>
 <ul>
 <li><b>Profile:</b> 18 y/o French IT Student & Autodidact Developer</li>
@@ -62,7 +62,7 @@
 <p><i>"Stay curious, automate repetitive tasks, and build reliable systems from the ground up."</i></p>
 </td>
 <td width="38%" align="center" valign="middle">
-<img src="./assets/anime/rimuru.gif" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);" alt="Rimuru Tempest"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/rimuru.gif" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);" alt="Rimuru Tempest"/>
 <br/>
 <sub><b>Rimuru Tempest</b> // That Time I Got Reincarnated as a Slime</sub>
 </td>
@@ -77,12 +77,12 @@
 <table>
 <tr>
 <td width="38%" align="center" valign="middle">
-<img src="./assets/anime/roxy.gif" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);" alt="Roxy Migurdia"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/roxy.gif" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);" alt="Roxy Migurdia"/>
 <br/>
 <sub><b>Roxy Migurdia</b> // Mushoku Tensei</sub>
 </td>
 <td width="62%" valign="top">
-<img src="./assets/headers/skills.svg" width="380" alt="Tech Stack"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/skills.svg" width="380" alt="Tech Stack"/>
 <p>Languages, runtimes, and infrastructure technologies utilized across my projects:</p>
 <div align="center">
 <a href="https://skillicons.dev">
@@ -113,7 +113,7 @@
 <!-- 03 — FEATURED PROJECTS                              -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<img src="./assets/headers/projects.svg" width="380" alt="Featured Projects"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/projects.svg" width="380" alt="Featured Projects"/>
 <p>Production platforms, internal tools and automation systems deployed in real-world environments.</p>
 </div>
 
@@ -123,7 +123,7 @@
 <tr>
 <td width="35%" align="center" valign="middle">
 <a href="https://github.com/RIZYOX" target="_blank">
-<img src="./assets/projects/proxmox-vps-bot.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Proxmox VPS Bot"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/projects/proxmox-vps-bot.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Proxmox VPS Bot"/>
 </a>
 </td>
 <td width="65%" valign="top">
@@ -135,7 +135,7 @@
 <tr>
 <td width="35%" align="center" valign="middle">
 <a href="https://tec-motoculture.fr" target="_blank">
-<img src="./assets/projects/tec-motoculture.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Tec Motoculture"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/projects/tec-motoculture.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Tec Motoculture"/>
 </a>
 </td>
 <td width="65%" valign="top">
@@ -146,7 +146,7 @@
 </tr>
 <tr>
 <td width="35%" align="center" valign="middle">
-<img src="./assets/projects/panel-location.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Panel Gestion Location"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/projects/panel-location.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Panel Gestion Location"/>
 </td>
 <td width="65%" valign="top">
 <p style="margin: 0;"><b>Panel Gestion Location</b> &nbsp; <img src="https://img.shields.io/badge/INTERNAL_APP-f97316?style=flat-square" alt="Status"/></p>
@@ -156,7 +156,7 @@
 </tr>
 <tr>
 <td width="35%" align="center" valign="middle">
-<img src="./assets/projects/panel-rdv.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Panel Gestion RDV"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/projects/panel-rdv.webp" width="100%" style="border-radius: 6px; border: 1px solid #30363d;" alt="Panel Gestion RDV"/>
 </td>
 <td width="65%" valign="top">
 <p style="margin: 0;"><b>Panel Gestion RDV</b> &nbsp; <img src="https://img.shields.io/badge/INTERNAL_APP-a855f7?style=flat-square" alt="Status"/></p>
@@ -176,7 +176,7 @@
 <!-- 04 — GITHUB ANALYTICS                               -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<img src="./assets/headers/stats.svg" width="380" alt="GitHub Analytics"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/stats.svg" width="380" alt="GitHub Analytics"/>
 <p>Live commit metrics, streaks and language composition.</p>
 
 <p align="center">
@@ -195,7 +195,7 @@
 </p>
 
 <p align="center">
-<img src="./assets/anime/kirito.gif" width="460px" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" alt="Kirito SAO Dual Wield"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/kirito.gif" width="460px" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" alt="Kirito SAO Dual Wield"/>
 <br/>
 <sub><b>Kirito</b> // Sword Art Online</sub>
 </p>
@@ -207,7 +207,7 @@
 <!-- 05 — FAVORITE ANIME UNIVERSES                       -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<img src="./assets/headers/anime.svg" width="380" alt="Favorite Anime Universes"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/anime.svg" width="380" alt="Favorite Anime Universes"/>
 <p>Stories, worldbuilding, and fantasy that inspire my imagination.</p>
 </div>
 
@@ -216,25 +216,25 @@
 <table>
 <tr>
 <td align="center" width="25%" valign="top">
-<img src="./assets/anime/kirito.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Sword Art Online"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/kirito.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Sword Art Online"/>
 <br/>
 <b>Sword Art Online</b><br/>
 <sub>Virtual Reality & Code</sub>
 </td>
 <td align="center" width="25%" valign="top">
-<img src="./assets/anime/roxy.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Mushoku Tensei"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/roxy.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Mushoku Tensei"/>
 <br/>
 <b>Mushoku Tensei</b><br/>
 <sub>Magic Mastery & Growth</sub>
 </td>
 <td align="center" width="25%" valign="top">
-<img src="./assets/anime/rimuru.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Tensura"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/rimuru.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Tensura"/>
 <br/>
 <b>Slime (Tensura)</b><br/>
 <sub>Architecture & Logic</sub>
 </td>
 <td align="center" width="25%" valign="top">
-<img src="./assets/anime/coco.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Witch Hat Atelier"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/anime/coco.gif" width="100%" style="border-radius: 8px; height: 130px; object-fit: cover;" alt="Witch Hat Atelier"/>
 <br/>
 <b>Witch Hat Atelier</b><br/>
 <sub>Runic Glyphs & Curiosity</sub>
@@ -248,7 +248,7 @@
 <!-- 06 — CONNECT                                        -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div align="center">
-<img src="./assets/headers/connect.svg" width="380" alt="Connect"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/connect.svg" width="380" alt="Connect"/>
 <p>Available for technical discussions, infrastructure questions, and collaborative projects.</p>
 
 <p>
@@ -270,5 +270,5 @@
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- FOOTER WAVE                                         -->
 <!-- ═══════════════════════════════════════════════════ -->
-<img src="./assets/headers/footer.svg" width="100%" alt="Footer Wave"/>
+<img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/main/assets/headers/footer.svg" width="100%" alt="Footer Wave"/>
 </div>
