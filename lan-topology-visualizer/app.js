@@ -218,14 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
     isPrivacyActive = !isPrivacyActive;
     btnPrivacy.classList.toggle('active', isPrivacyActive);
     engine.privacyMode = isPrivacyActive;
+    // Refresh inspector if open
+    if (activeNode) showNodeInspector(activeNode);
     addLog(isPrivacyActive ? '🔒 MODE CONFIDENTIALITÉ ACTIVÉ : Adresses IP masquées.' : 'Mode confidentialité désactivé.');
   });
 
   // Node Inspector Show / Hide
   function showNodeInspector(node) {
     activeNode = node;
+    const displayIp = isPrivacyActive ? maskIpsInText(node.ip) : node.ip;
     document.getElementById('insp-name').textContent = node.label;
-    document.getElementById('insp-ip').textContent = node.ip;
+    document.getElementById('insp-ip').textContent = displayIp;
     document.getElementById('insp-mac').textContent = node.mac || 'N/A';
     document.getElementById('insp-vlan').textContent = `VLAN ${node.vlan}`;
     document.getElementById('insp-status').textContent = (node.status || 'ONLINE').toUpperCase();
@@ -240,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
       servicesContainer.appendChild(tag);
     });
 
-    pingResults.textContent = `Host prêt: ${node.ip}`;
+    pingResults.textContent = `Host prêt: ${displayIp}`;
     inspector.classList.add('open');
   }
 
@@ -335,9 +338,15 @@ document.addEventListener('DOMContentLoaded', () => {
     'Apple Device (192.168.10.180): DHCP lease renewed by OPNsense (192.168.10.1).'
   ];
 
+  function maskIpsInText(text) {
+    // Replace IPv4 addresses with masked version: 192.168.10.82 → 192.***.***82
+    return text.replace(/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/g, (_, a, b, c, d) => `${a}.***.***${d}`);
+  }
+
   let logIndex = 0;
   setInterval(() => {
-    logText.textContent = syslogMessages[logIndex % syslogMessages.length];
+    const msg = syslogMessages[logIndex % syslogMessages.length];
+    logText.textContent = isPrivacyActive ? maskIpsInText(msg) : msg;
     logIndex++;
   }, 4500);
 
