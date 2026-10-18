@@ -124,6 +124,23 @@ Hey, I'm **RIZYOX** — 18-year-old French IT student and self-taught developer 
 <table>
 <tr>
 <td width="36%" align="center" valign="middle">
+  <a href="./lan-topology-visualizer" target="_blank">
+    <img src="./assets/projects/net-topology.png" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="NetTopology LAN Visualizer"/>
+  </a>
+</td>
+<td width="64%" valign="top">
+
+**[NetTopology — LAN Visualizer](./lan-topology-visualizer)** &nbsp; ![NETWORK](https://img.shields.io/badge/NETWORK-3b82f6?style=flat-square) &nbsp; ![LIVE](https://img.shields.io/badge/AUTO--DISCOVERY-22c55e?style=flat-square)
+
+Interactive 60 FPS Canvas 2D engine that auto-detects and visualizes local networks (LAN) and homelab clusters in real time. Features animated traffic packets, VLAN filtering, and live ICMP diagnostics.
+
+`Canvas 2D` `Node.js` `Vanilla JS` `Networking` `ARP Scanner`
+
+</td>
+</tr>
+
+<tr>
+<td width="36%" align="center" valign="middle">
   <a href="https://github.com/RIZYOX" target="_blank">
     <img src="./assets/projects/proxmox-vps-bot.webp" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="Proxmox VPS Bot"/>
   </a>
