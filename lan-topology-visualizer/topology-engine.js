@@ -30,6 +30,7 @@ class TopologyEngine {
     this.trafficMultiplier = 1.0;
     this.simulationMode = 'normal'; // 'normal', 'heavy', 'attack'
     this.activeVlanFilter = null; // null = all
+    this.privacyMode = false; // Masks IP addresses
     
     // Physics parameters
     this.physicsEnabled = true;
@@ -566,7 +567,11 @@ class TopologyEngine {
       // IP Badge
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.fillStyle = '#94a3b8';
-      ctx.fillText(node.ip, 0, r + 28);
+      let displayIp = node.ip || '';
+      if (this.privacyMode) {
+        displayIp = displayIp.replace(/(\d+)\.(\d+)\.(\d+)\.(\d+)/, '$1.•••.•••.$4').replace(/(\d+)\.(\d+)\.•••/, '•••.•••.•••');
+      }
+      ctx.fillText(displayIp, 0, r + 28);
 
       ctx.restore();
     }

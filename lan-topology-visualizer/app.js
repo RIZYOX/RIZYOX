@@ -211,6 +211,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Toggle Privacy Mode (Mask IPs)
+  const btnPrivacy = document.getElementById('btn-privacy');
+  let isPrivacyActive = false;
+  btnPrivacy.addEventListener('click', () => {
+    isPrivacyActive = !isPrivacyActive;
+    btnPrivacy.classList.toggle('active', isPrivacyActive);
+    engine.privacyMode = isPrivacyActive;
+    addLog(isPrivacyActive ? '🔒 MODE CONFIDENTIALITÉ ACTIVÉ : Adresses IP masquées.' : 'Mode confidentialité désactivé.');
+  });
+
   // Node Inspector Show / Hide
   function showNodeInspector(node) {
     activeNode = node;
