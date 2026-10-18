@@ -218,7 +218,7 @@ Workshop appointment and repair tracking software — slot reservation, customer
 
 <!-- ACTIVITY GRAPH -->
 <a href="https://github.com/RIZYOX">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=RIZYOX&theme=tokyo-night&hide_border=true&bg_color=0d1117&color=60a5fa&line=a855f7&point=38bdf8&area=true&area_color=1e3a5f" width="95%" alt="Activity Graph"/>
+  <img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/activity-graph.svg" width="95%" alt="Activity Graph"/>
 </a>
 
 <br/><br/>
