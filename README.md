@@ -1,324 +1,130 @@
 <div align="center">
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  HEADER — Capsule Render waving                           -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img
-  src="https://capsule-render.vercel.app/api?type=waving&color=0:0b0f1a,40:1e3a5f,70:3b1f6b,100:0b0f1a&height=280&section=header&text=RIZYOX&fontSize=90&fontColor=ffffff&fontAlignY=42&animation=fadeIn&desc=Infrastructure%20%C2%B7%20Cloud%20Virtualization%20%C2%B7%20Full-Stack&descSize=16&descAlignY=62&descAlign=50&descColor=94a3b8"
-  width="100%" alt="RIZYOX"/>
+# 🎛️ CYD-Deck Studio
+### Next-Gen ESP32 CYD Touchscreen Stream Deck & Electron Companion
 
-<!-- TYPING SVG -->
-<a href="https://rizyox.fr" target="_blank">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=3000&pause=900&color=60A5FA&center=true&vCenter=true&width=680&lines=18+y%2Fo+French+IT+Student;Cloud+Infrastructure+%2F+Proxmox+VE+%2F+Docker;Vanilla+PHP+%7C+Node.js+%7C+Python+%7C+TypeScript;Building+reliable+systems+from+scratch" alt="Typing"/>
-</a>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Stack](https://img.shields.io/badge/Stack-Electron_·_Node.js_·_C++_ESP32-blue?style=for-the-badge)](https://www.electronjs.org/)
+[![Hardware](https://img.shields.io/badge/Hardware-ESP32--2432S028R_CYD-orange?style=for-the-badge)](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display)
+[![OBS](https://img.shields.io/badge/OBS-WebSocket_v5-red?style=for-the-badge)](https://obsproject.com)
 
-<br/>
-
-<!-- PROFILE COUNTERS -->
-<a href="https://github.com/RIZYOX">
-  <img src="https://views.igorkowalczyk.dev/api/badge/RIZYOX?style=flat&color=1e3a5f&label=Profile+Views" alt="Profile Views"/>
-</a>
-&nbsp;
-<a href="https://github.com/RIZYOX?tab=followers">
-  <img src="https://img.shields.io/github/followers/RIZYOX?label=Followers&style=flat-square&color=3b1f6b&logo=github&logoColor=white" alt="Followers"/>
-</a>
-
-<br/><br/>
-
-<!-- LINKS -->
-<a href="https://rizyox.fr" target="_blank">
-  <img src="https://img.shields.io/badge/PORTFOLIO-rizyox.fr-2563eb?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/>
-</a>
-&nbsp;
-<a href="https://discord.com/users/rizyox_" target="_blank">
-  <img src="https://img.shields.io/badge/DISCORD-rizyox__-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"/>
-</a>
-&nbsp;
-<a href="https://github.com/RIZYOX">
-  <img src="https://img.shields.io/badge/GITHUB-RIZYOX-0f172a?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-</a>
+<p align="center">
+  <b>Transformez votre écran tactile ESP32 CYD (Cheap Yellow Display à moins de 15€) en un véritable Elgato Stream Deck professionnel !</b><br/>
+  Piloté par une application de bureau <b>Electron</b> moderne, réactive et connectée à OBS Studio, Discord, vos raccourcis multimédias et le monitoring de votre PC en temps réel.
+</p>
 
 </div>
 
-<br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  01 — ABOUT ME                                            -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/about.svg" width="100%" alt="About Me"/>
-
-<table>
-<tr>
-<td width="60%" valign="top">
-
-Hey, I'm **RIZYOX** — 18-year-old French IT student and self-taught developer focused on **cloud infrastructure, homelab virtualization, and full-stack engineering**.
-
-- **Profile** — 18 y/o French IT Student & Autodidact Developer
-- **Core Focus** — Cloud Infrastructure, Virtualization (Proxmox VE) & Systems Architecture
-- **Homelab & SysAdmin** — Linux (Debian, Parrot OS), Docker, cloud-init automations
-- **Dev** — Vanilla PHP, Node.js, TypeScript, Python, Discord bots
-- **Anime Realm** — SAO · Mushoku Tensei · Tensura · Witch Hat Atelier
-- **Portfolio** — [rizyox.fr](https://rizyox.fr)
-
-> *"Stay curious, automate the repetitive, build reliable systems."*
-
-</td>
-<td width="40%" align="center" valign="middle">
-  <img src="./assets/anime/rimuru.gif" width="95%" style="border-radius: 14px;" alt="Rimuru Tempest"/>
-  <br/>
-  <sub><b>Rimuru Tempest</b> // That Time I Got Reincarnated as a Slime</sub>
-</td>
-</tr>
-</table>
-
-<br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  02 — TECH STACK                                          -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/skills.svg" width="100%" alt="Tech Stack"/>
-
-<table>
-<tr>
-<td width="38%" align="center" valign="middle">
-  <img src="./assets/anime/roxy.gif" width="95%" style="border-radius: 14px;" alt="Roxy Migurdia"/>
-  <br/>
-  <sub><b>Roxy Migurdia</b> // Mushoku Tensei</sub>
-</td>
-<td width="62%" valign="top">
-
-<div align="center">
-<a href="https://skillicons.dev">
-  <img src="https://skillicons.dev/icons?i=nodejs,docker,linux,debian,python,php,html,css,js,ts,react,git,github,bash,vscode&perline=8&theme=dark" alt="Tech Stack Icons"/>
-</a>
-</div>
-
-<br/>
-
-<details open>
-<summary><b>Categorized Overview</b></summary>
-<br/>
-
-| Domain | Technologies |
-| :--- | :--- |
-| **Backend & Core** | `Node.js` `Vanilla PHP` `Python` `TypeScript` |
-| **Frontend & UI** | `HTML5` `CSS3` `JavaScript (ES6+)` `React / TSX` |
-| **DevOps & Cloud** | `Docker` `Docker Compose` `Proxmox VE` `cloud-init` |
-| **OS & SysAdmin** | `Debian` `Parrot OS` `Bash` `SSH` `Reverse Proxy` |
-| **Tools & APIs** | `Git` `GitHub` `Discord.js API` `Proxmox API` `VS Code` |
-
-</details>
-</td>
-</tr>
-</table>
-
-<br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  03 — FEATURED PROJECTS                                   -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/projects.svg" width="100%" alt="Featured Projects"/>
-
-<br/><br/>
-
-<table>
-<tr>
-<td width="36%" align="center" valign="middle">
-  <a href="./lan-topology-visualizer" target="_blank">
-    <img src="./assets/projects/net-topology-preview.png" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="NetTopology LAN Visualizer"/>
-  </a>
-</td>
-<td width="64%" valign="top">
-
-**[NetTopology — LAN Visualizer](./lan-topology-visualizer)** &nbsp; ![NETWORK](https://img.shields.io/badge/NETWORK-3b82f6?style=flat-square) &nbsp; ![LIVE](https://img.shields.io/badge/AUTO--DISCOVERY-22c55e?style=flat-square)
-
-Interactive 60 FPS Canvas 2D engine that auto-detects and visualizes local networks (LAN) and homelab clusters in real time. Features animated traffic packets, VLAN filtering, and live ICMP diagnostics.
-
-`Canvas 2D` `Node.js` `Vanilla JS` `Networking` `ARP Scanner`
-
-</td>
-</tr>
-
-<tr>
-<td width="36%" align="center" valign="middle">
-  <a href="https://github.com/RIZYOX" target="_blank">
-    <img src="./assets/projects/proxmox-vps-bot.webp" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="Proxmox VPS Bot"/>
-  </a>
-</td>
-<td width="64%" valign="top">
-
-**[Proxmox VPS Bot](https://github.com/RIZYOX)** &nbsp; ![AUTOMATION](https://img.shields.io/badge/AUTOMATION-5865F2?style=flat-square)
-
-Discord bot that creates and orchestrates Virtual Machines via the **Proxmox API**. Deploys fresh VMs with **cloud-init** OS and network setup using slash commands.
-
-`Node.js` `Discord.js` `Proxmox API` `cloud-init`
-
-</td>
-</tr>
-
-<tr>
-<td width="36%" align="center" valign="middle">
-  <a href="https://tec-motoculture.fr" target="_blank">
-    <img src="./assets/projects/tec-motoculture.webp" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="Tec Motoculture"/>
-  </a>
-</td>
-<td width="64%" valign="top">
-
-**[Tec Motoculture](https://tec-motoculture.fr)** &nbsp; ![LIVE](https://img.shields.io/badge/LIVE-22c55e?style=flat-square)
-
-Commercial showcase web app for an equipment retail company — responsive, fast, pure vanilla PHP with high SEO score.
-
-`Vanilla PHP` `HTML5` `CSS3` `JavaScript`
-
-</td>
-</tr>
-
-<tr>
-<td width="36%" align="center" valign="middle">
-  <img src="./assets/projects/panel-location.webp" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="Panel Location"/>
-</td>
-<td width="64%" valign="top">
-
-**Panel Gestion Location** &nbsp; ![INTERNAL](https://img.shields.io/badge/INTERNAL-f97316?style=flat-square)
-
-Dashboard managing equipment rentals: reservation schedule, return tracking, deposit workflows, and customer data export.
-
-`Vanilla PHP` `JavaScript` `Dashboard UI` `CSS3`
-
-</td>
-</tr>
-
-<tr>
-<td width="36%" align="center" valign="middle">
-  <img src="./assets/projects/panel-rdv.webp" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="Panel Gestion RDV"/>
-</td>
-<td width="64%" valign="top">
-
-**Panel Gestion RDV** &nbsp; ![INTERNAL](https://img.shields.io/badge/INTERNAL-a855f7?style=flat-square)
-
-Workshop appointment and repair tracking software — slot reservation, customer logs, diagnostics, and intervention history.
-
-`Vanilla PHP` `JavaScript` `Calendar UI` `CSS3`
-
-</td>
-</tr>
-</table>
-
-<div align="right">
-  <a href="https://rizyox.fr/#projects" target="_blank"><i>View full live portfolio on rizyox.fr ➔</i></a>
-</div>
-
-<br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  04 — GITHUB ANALYTICS                                    -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/stats.svg" width="100%" alt="GitHub Analytics"/>
-
-<div align="center">
-<br/>
-
-<a href="https://github.com/RIZYOX">
-  <img src="https://github-readme-stats.vercel.app/api?username=RIZYOX&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=60a5fa&icon_color=a855f7&text_color=94a3b8" height="155" alt="RIZYOX Stats"/>
-</a>
-<a href="https://github.com/RIZYOX">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=RIZYOX&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=60a5fa&text_color=94a3b8" height="155" alt="Top Languages"/>
-</a>
-
-<br/>
-
-<a href="https://github.com/RIZYOX">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=RIZYOX&theme=tokyonight&hide_border=true&background=0d1117&ring=60a5fa&fire=f97316&currStreakLabel=60a5fa" height="155" alt="GitHub Streak"/>
-</a>
-
-<br/>
-
-<!-- ACTIVITY GRAPH -->
-<a href="https://github.com/RIZYOX">
-  <img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/activity-graph.svg" width="95%" alt="Activity Graph"/>
-</a>
-
-<br/><br/>
-
-<!-- CONTRIBUTION SNAKE -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/github-snake-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/github-snake.svg"/>
-  <img src="https://raw.githubusercontent.com/RIZYOX/RIZYOX/output/github-snake-dark.svg" width="95%" alt="Contribution Snake"/>
-</picture>
-
-<br/><br/>
-
-<img src="./assets/anime/kirito.gif" width="420px" style="border-radius: 14px;" alt="Kirito — SAO"/>
-<br/>
-<sub><b>Kirito</b> // Sword Art Online</sub>
-</div>
-
-<br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  05 — FAVORITE ANIME                                      -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/anime.svg" width="100%" alt="Favorite Anime"/>
-
-<br/><br/>
-
-<table>
-<tr>
-<td align="center" width="25%" valign="top">
-  <img src="./assets/anime/kirito.gif" width="100%" style="border-radius: 10px; height: 140px; object-fit: cover;" alt="Sword Art Online"/>
-  <br/>
-  <b>Sword Art Online</b><br/>
-  <sub>Virtual Reality & Code</sub>
-</td>
-<td align="center" width="25%" valign="top">
-  <img src="./assets/anime/roxy.gif" width="100%" style="border-radius: 10px; height: 140px; object-fit: cover;" alt="Mushoku Tensei"/>
-  <br/>
-  <b>Mushoku Tensei</b><br/>
-  <sub>Magic Mastery & Growth</sub>
-</td>
-<td align="center" width="25%" valign="top">
-  <img src="./assets/anime/rimuru.gif" width="100%" style="border-radius: 10px; height: 140px; object-fit: cover;" alt="Tensura"/>
-  <br/>
-  <b>Slime (Tensura)</b><br/>
-  <sub>Architecture & Leadership</sub>
-</td>
-<td align="center" width="25%" valign="top">
-  <img src="./assets/anime/coco.gif" width="100%" style="border-radius: 10px; height: 140px; object-fit: cover;" alt="Witch Hat Atelier"/>
-  <br/>
-  <b>Witch Hat Atelier</b><br/>
-  <sub>Runic Glyphs & Curiosity</sub>
-</td>
-</tr>
-</table>
-
-<br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  06 — CONNECT                                             -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="./assets/headers/connect.svg" width="100%" alt="Connect"/>
-
-<div align="center">
-<br/>
-
-<a href="https://discord.com/users/rizyox_" target="_blank">
-  <img src="https://img.shields.io/badge/DISCORD-rizyox__-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"/>
-</a>
-&nbsp;
-<a href="https://rizyox.fr" target="_blank">
-  <img src="https://img.shields.io/badge/WEBSITE-rizyox.fr-2563eb?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website"/>
-</a>
-&nbsp;
-<a href="https://github.com/RIZYOX" target="_blank">
-  <img src="https://img.shields.io/badge/GITHUB-RIZYOX-0f172a?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-</a>
-
-<br/><br/>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  FOOTER — Capsule Render wave                             -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b0f1a,40:1e3a5f,70:3b1f6b,100:0b0f1a&height=140&section=footer" width="100%" alt="Footer Wave"/>
-
-</div>
+---
+
+## 🌟 Points Forts du Projet
+
+- 🖥️ **Simulateur Virtuel Interactif :** Testez et configurez vos touches en direct depuis l'application Electron, même sans votre ESP32 branché !
+- 🎥 **Plugin OBS Studio v5 Natif :** Changement de scène, toggle mute micro, démarrage/arrêt stream et enregistrement avec retour d'état visuel en temps réel sur l'écran.
+- 🎧 **Plugin Discord :** Mute / Unmute du microphone, Deafen (rendre sourd) et raccourcis vocaux instantanés.
+- ⌨️ **Touches Multimédias & Macros Windows :** Play/Pause Spotify, contrôle du volume (+ / - / mute), lancement d'applications en 1 clic et frappe de raccourcis complexes (`Ctrl+Shift+...`).
+- 📊 **Monitoring PC en Direct :** Envoi continu de la charge CPU (%) et RAM (%) affichée dans la barre d'état du CYD.
+- 🌙 **Gestion Écologique de la Veille :** Extinction automatique du rétro-éclairage de l'écran (GPIO 21) lorsque votre PC se verrouille ou se met en veille.
+- ⚡ **Double Connectivité :** Connexion **USB Série ultra rapide (< 2 ms)** avec auto-détection du port COM, ou **Wi-Fi sans fil via WebSocket**.
+
+---
+
+## 🏗️ Architecture Globale
+
+```text
+┌─────────────────────────────────┐           USB Série (115200 / 921600)          ┌───────────────────────────────────┐
+│     ESP32 CYD (Hardware)        │ <============================================> │     CYD-Deck Studio (Electron)    │
+│  - Écran TFT 2.8" (320x240)     │           ou Wi-Fi WebSocket (Port 8765)       │  - Interface Cyberpunk / Studio   │
+│  - Dalle tactile XPT2046        │                                                │  - Simulateur d'écran en direct   │
+│  - Rétroéclairage PWM (GPIO 21) │ ◄── [PAGE_SYNC / STATS / SLEEP]                │  - Inspecteur de touches          │
+│  - Rendu C++ 60 FPS (TFT_eSPI)  │ ──► [TOUCH {"idx": 0, "type": "click"}] ──────►│  - Moteur de Plugins             │
+└─────────────────────────────────┘                                                └─────────────────┬─────────────────┘
+                                                                                                     │
+                                                       ┌───────────────────────┬─────────────────────┴──────────────────┐
+                                                       ▼                       ▼                                        ▼
+                                            🔴 Plugin OBS Studio       🎧 Plugin Discord               ⌨️ Contrôleur Système Windows
+                                            - obs-websocket-js v5     - Discord RPC & Hotkeys          - Touches Médias (Play/Vol)
+                                            - Scènes & Mutes          - Micro & Casque Toggle          - Macros & Lancement d'Apps
+```
+
+---
+
+## 📟 Schéma des Broches ESP32 CYD (ESP32-2432S028R)
+
+| Composant | Broche GPIO | Fonction |
+| :--- | :--- | :--- |
+| **Écran LCD SPI** | `GPIO 13` (MOSI), `GPIO 12` (MISO), `GPIO 14` (SCK), `GPIO 15` (CS), `GPIO 2` (DC) | Affichage couleur 320x240 (ILI9341) |
+| **Rétroéclairage LCD** | `GPIO 21` | Contrôle PWM de luminosité & extinction veille |
+| **Dalle Tactile** | `GPIO 33` (CS), `GPIO 36` (IRQ), `GPIO 32` (MOSI), `GPIO 39` (MISO), `GPIO 25` (CLK) | Détection tactile XPT2046 |
+| **Buzzer / Audio** | `GPIO 26` | Bip haptique lors des clics tactiles |
+| **LED RGB Onboard** | `GPIO 4` (R), `GPIO 16` (G), `GPIO 17` (B) | Indicateur d'état (active-low) |
+| **Carte MicroSD** | `GPIO 5` (CS), `GPIO 18` (SCK), `GPIO 19` (MISO), `GPIO 23` (MOSI) | Stockage optionnel d'images HD / GIFs |
+
+---
+
+## 🚀 Démarrage Rapide
+
+### 1. Lancer l'application Electron (PC)
+
+```bash
+# 1. Cloner ou ouvrir le dossier
+git clone https://github.com/RIZYOX/RIZYOX.git
+cd RIZYOX
+
+# 2. Installer les dépendances
+npm install
+
+# 3. Lancer l'application de bureau
+npm start
+```
+
+### 2. Flasher l'ESP32 CYD
+
+#### Méthode A — Avec PlatformIO (Recommandé en 1 clic)
+Le fichier `firmware/platformio.ini` est déjà configuré avec toutes les broches du CYD :
+```bash
+cd firmware
+pio run --target upload
+```
+
+#### Méthode B — Avec l'IDE Arduino
+1. Ouvrez `firmware/arduino/cyd_streamdeck.ino` dans l'IDE Arduino.
+2. Installez les bibliothèques **TFT_eSPI**, **XPT2046_Touchscreen** et **ArduinoJson** depuis le Gestionnaire de Bibliothèques.
+3. Copiez le fichier `firmware/User_Setup.h` dans votre dossier `Documents/Arduino/libraries/TFT_eSPI/User_Setup.h`.
+4. Sélectionnez la carte **ESP32 Dev Module**, choisissez votre port COM, et cliquez sur **Téléverser** !
+
+---
+
+## 📁 Structure du Projet
+
+```text
+├── package.json                   # Dépendances Node.js & Electron
+├── main.js                       # Processus principal Electron & gestion Tray/Veille
+├── preload.js                    # Pont IPC sécurisé ContextBridge
+├── src/
+│   ├── backend/
+│   │   ├── config-store.js       # Stockage persistant des pages et profils
+│   │   ├── serial-manager.js     # Gestionnaire série USB (Auto-reconnexion)
+│   │   ├── websocket-server.js   # Serveur WebSocket sans fil (Port 8765)
+│   │   ├── plugin-manager.js     # Orchestrateur des plugins
+│   │   ├── system-monitor.js     # Sondes CPU / RAM en temps réel
+│   │   └── plugins/
+│   │       ├── obs-plugin.js     # Intégration OBS WebSocket v5
+│   │       ├── discord-plugin.js # Intégration Discord
+│   │       └── system-plugin.js  # Raccourcis clavier & médias Windows
+│   └── renderer/
+│       ├── index.html            # Interface du studio & simulateur
+│       ├── style.css             # Design System Cyberpunk / Studio
+│       └── app.js                # Contrôleur d'interface utilisateur
+└── firmware/
+    ├── platformio.ini            # Configuration PlatformIO automatisée
+    ├── User_Setup.h              # Paramétrage broches TFT_eSPI pour le CYD
+    ├── src/main.cpp              # Code source C++ du firmware CYD
+    └── arduino/                  # Version prête pour l'IDE Arduino
+```
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence **MIT**. Développé avec passion pour la communauté Maker & Homelab par **[RIZYOX](https://github.com/RIZYOX)**.

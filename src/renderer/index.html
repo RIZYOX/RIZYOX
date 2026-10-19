@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYD-Deck Studio — ESP32 Stream Deck Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- TOP HEADER -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">CYD-DECK <span>STUDIO</span></h1>
+          <p class="brand-subtitle">ESP32-2432S028R Companion & Plugin Hub</p>
+        </div>
+      </div>
+
+      <!-- HARDWARE STATUS BAR -->
+      <div class="hardware-status-group">
+        <!-- SERIAL PORT STATUS -->
+        <div class="status-card" id="serialStatusCard">
+          <div class="status-indicator" id="serialLed"></div>
+          <div class="status-info">
+            <span class="status-label">ESP32 CYD (USB)</span>
+            <span class="status-val" id="serialPortName">Déconnecté</span>
+          </div>
+          <button class="btn-action-sm" id="btnConnectSerial" title="Connecter / Détecter">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            Scanner
+          </button>
+        </div>
+
+        <!-- OBS STATUS -->
+        <div class="status-card" id="obsStatusCard">
+          <div class="status-indicator" id="obsLed"></div>
+          <div class="status-info">
+            <span class="status-label">OBS STUDIO v5</span>
+            <span class="status-val" id="obsStatusText">Déconnecté</span>
+          </div>
+          <button class="btn-action-sm" id="btnConfigOBS" title="Paramètres OBS">
+            ⚙️ OBS
+          </button>
+        </div>
+
+        <!-- SYSTEM MONITOR MINI GAUGES -->
+        <div class="system-mini-gauges">
+          <div class="gauge-pill">
+            <span class="gauge-name">CPU</span>
+            <span class="gauge-val" id="cpuVal">0%</span>
+            <div class="gauge-bar"><div class="gauge-fill" id="cpuBar" style="width: 0%;"></div></div>
+          </div>
+          <div class="gauge-pill">
+            <span class="gauge-name">RAM</span>
+            <span class="gauge-val" id="ramVal">0%</span>
+            <div class="gauge-bar"><div class="gauge-fill" id="ramBar" style="width: 0%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN WORKSPACE -->
+    <main class="app-main">
+      <!-- LEFT: SIMULATOR & PAGES -->
+      <section class="simulator-section">
+        <div class="section-top">
+          <div class="pages-tabs" id="pagesTabContainer">
+            <!-- Injected by app.js -->
+          </div>
+          <div class="page-controls">
+            <button class="btn-sm btn-outline" id="btnAddPage">+ Nouvelle Page</button>
+            <button class="btn-sm btn-neon" id="btnSyncCYD" title="Forcer la synchronisation avec l'ESP32">
+              ⚡ Synchroniser CYD
+            </button>
+          </div>
+        </div>
+
+        <!-- VIRTUAL CYD HARDWARE FRAME (Exact 320x240 Aspect Ratio) -->
+        <div class="cyd-mockup-frame">
+          <div class="cyd-pcb-header">
+            <span class="cyd-model-badge">ESP32-2432S028R</span>
+            <span class="cyd-screen-spec">320 × 240 TFT SPI • 60 FPS</span>
+            <div class="cyd-status-led" id="cydHardwareLed"></div>
+          </div>
+
+          <div class="cyd-screen-bezel">
+            <div class="cyd-screen-canvas" id="cydVirtualScreen">
+              <!-- Virtual buttons grid 3x2 injected by app.js -->
+            </div>
+          </div>
+
+          <!-- Bottom hardware controls -->
+          <div class="cyd-mockup-footer">
+            <div class="brightness-slider-group">
+              <span class="slider-label">🔆 Rétro-éclairage (GPIO 21) :</span>
+              <input type="range" id="brightnessSlider" min="10" max="100" value="100" class="range-slider">
+              <span id="brightnessVal">100%</span>
+            </div>
+            <div class="cyd-quick-hint">
+              Cliquez sur une touche pour tester l'action ou la configurer ci-contre 👉
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK TEST CONSOLE -->
+        <div class="live-event-terminal">
+          <div class="terminal-header">
+            <span class="term-title">CONSOLE ÉVÉNEMENTS CYD EN DIRECT</span>
+            <button class="term-clear-btn" id="btnClearTerminal">Effacer</button>
+          </div>
+          <div class="terminal-body" id="eventTerminalLogs">
+            <div class="term-line info">[SYSTEM] CYD-Deck Studio initialisé avec succès. Prêt.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: BUTTON INSPECTOR & ACTION EDITOR -->
+      <aside class="inspector-section" id="buttonInspector">
+        <div class="inspector-header">
+          <h2 class="inspector-title" id="inspectorTitle">Édition de la touche #0</h2>
+          <span class="inspector-tag" id="inspectorPageTag">Page 1</span>
+        </div>
+
+        <div class="inspector-content">
+          <!-- LABEL & SUBTITLE -->
+          <div class="form-group">
+            <label class="form-label" for="inpBtnLabel">Texte Principal (Titre)</label>
+            <input type="text" id="inpBtnLabel" class="form-input" placeholder="Ex: REC OBS, MUTE, SPOTIFY">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inpBtnSub">Sous-titre (Optionnel)</label>
+            <input type="text" id="inpBtnSub" class="form-input" placeholder="Ex: Toggle, Live, 30s">
+          </div>
+
+          <!-- ICON SELECTOR -->
+          <div class="form-group">
+            <label class="form-label">Icône Visuelle</label>
+            <div class="icon-picker-grid" id="iconPickerGrid">
+              <!-- Injected by app.js -->
+            </div>
+          </div>
+
+          <!-- COLOR PICKER -->
+          <div class="form-group">
+            <label class="form-label">Couleur de fond & Thème</label>
+            <div class="color-presets-row" id="colorPresetsRow">
+              <button class="color-dot" data-color="#7f1d1d" style="background: #7f1d1d;"></button>
+              <button class="color-dot" data-color="#1e3a8a" style="background: #1e3a8a;"></button>
+              <button class="color-dot" data-color="#14532d" style="background: #14532d;"></button>
+              <button class="color-dot" data-color="#701a75" style="background: #701a75;"></button>
+              <button class="color-dot" data-color="#312e81" style="background: #312e81;"></button>
+              <button class="color-dot" data-color="#1e293b" style="background: #1e293b;"></button>
+              <button class="color-dot" data-color="#0f172a" style="background: #0f172a;"></button>
+              <input type="color" id="inpCustomColor" class="custom-color-input" value="#1e3a8a" title="Couleur personnalisée">
+            </div>
+          </div>
+
+          <!-- PLUGIN & ACTION SELECTION -->
+          <div class="form-group">
+            <label class="form-label" for="selPlugin">Module / Plugin</label>
+            <select id="selPlugin" class="form-select">
+              <option value="obs">🎥 OBS Studio v5</option>
+              <option value="discord">🎧 Discord (Micro & Casque)</option>
+              <option value="system">⌨️ Système & Touches Médias</option>
+              <option value="internal">📱 Navigation Pages CYD</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="selAction">Action à exécuter</label>
+            <select id="selAction" class="form-select">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+
+          <!-- DYNAMIC ACTION PARAMETERS CONTAINER -->
+          <div id="dynamicParamsContainer" class="dynamic-params-container">
+            <!-- Injected by plugin choice -->
+          </div>
+
+          <!-- SAVE & TEST BUTTONS -->
+          <div class="inspector-buttons">
+            <button class="btn-primary" id="btnSaveButtonConfig">💾 Sauvegarder la Touche</button>
+            <button class="btn-secondary" id="btnTestButtonAction">▶️ Tester l'action maintenant</button>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- MODAL: OBS SETTINGS -->
+  <div class="modal-backdrop" id="obsModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Configuration OBS WebSocket v5</h3>
+        <button class="modal-close-btn" id="btnCloseObsModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          Dans OBS Studio, allez dans <strong>Outils &gt; Paramètres du serveur WebSocket</strong> et cochez <em>"Activer le serveur WebSocket"</em>.
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="inpObsAddress">Adresse WebSocket OBS</label>
+          <input type="text" id="inpObsAddress" class="form-input" value="ws://127.0.0.1:4455" placeholder="ws://127.0.0.1:4455">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="inpObsPassword">Mot de passe OBS (Optionnel)</label>
+          <input type="password" id="inpObsPassword" class="form-input" placeholder="Laissez vide si non protégé">
+        </div>
+        <div class="modal-status-feedback" id="obsModalFeedback"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnCancelObs">Annuler</button>
+        <button class="btn-primary" id="btnSaveConnectObs">Enregistrer &amp; Connecter</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
