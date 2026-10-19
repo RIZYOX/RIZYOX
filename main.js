@@ -63,6 +63,23 @@ function createWindow() {
     } else {
       mainWindow.show();
     }
+
+    // Mode DEV : Ouvre automatiquement les DevTools
+    if (process.argv.includes('--dev')) {
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
+    }
+  });
+
+  // Raccourcis pratiques en dev : F12 pour DevTools, F5 / Ctrl+R pour recharger
+  mainWindow.webContents.on('before-input-event', (event, input) => {
+    if (input.key === 'F12' || (input.control && input.shift && input.key.toLowerCase() === 'i')) {
+      mainWindow.webContents.toggleDevTools();
+      event.preventDefault();
+    }
+    if (input.key === 'F5' || (input.control && input.key.toLowerCase() === 'r')) {
+      mainWindow.reload();
+      event.preventDefault();
+    }
   });
 
   mainWindow.on('close', (event) => {
