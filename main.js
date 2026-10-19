@@ -13,14 +13,23 @@ let tray = null;
 let isQuitting = false;
 
 function createWindow() {
+  Menu.setApplicationMenu(null);
+
   mainWindow = new BrowserWindow({
-    width: 1320,
+    width: 1340,
     height: 880,
     minWidth: 1080,
     minHeight: 740,
     backgroundColor: '#070a12',
     title: 'CYD-Deck Studio — ESP32 Stream Deck Companion',
     icon: path.join(__dirname, 'src', 'renderer', 'icons', 'deck-icon.png'),
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#070a12',
+      symbolColor: '#94a3b8',
+      height: 38
+    },
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,

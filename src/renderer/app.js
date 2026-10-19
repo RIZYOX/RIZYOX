@@ -75,15 +75,26 @@ class CYDStudioApp {
     this.ramVal = document.getElementById('ramVal');
     this.ramBar = document.getElementById('ramBar');
 
-    // Pages & Simulator
-    this.pagesTabContainer = document.getElementById('pagesTabContainer');
+    // Pages & Simulator Stepper
+    this.btnPrevPageNav = document.getElementById('btnPrevPageNav');
+    this.btnNextPageNav = document.getElementById('btnNextPageNav');
+    this.pageCounterBadge = document.getElementById('pageCounterBadge');
+    this.pageTitleDisplay = document.getElementById('pageTitleDisplay');
+    this.btnRenamePage = document.getElementById('btnRenamePage');
+    this.pageDotsContainer = document.getElementById('pageDotsContainer');
     this.btnAddPage = document.getElementById('btnAddPage');
+    this.btnDeletePage = document.getElementById('btnDeletePage');
     this.btnSyncCYD = document.getElementById('btnSyncCYD');
     this.cydVirtualScreen = document.getElementById('cydVirtualScreen');
     this.brightnessSlider = document.getElementById('brightnessSlider');
     this.brightnessVal = document.getElementById('brightnessVal');
     this.eventTerminalLogs = document.getElementById('eventTerminalLogs');
     this.btnClearTerminal = document.getElementById('btnClearTerminal');
+
+    // Navigation Presets (Inspector)
+    this.presetNextPage = document.getElementById('presetNextPage');
+    this.presetPrevPage = document.getElementById('presetPrevPage');
+    this.presetHomePage = document.getElementById('presetHomePage');
 
     // Inspector
     this.inspectorTitle = document.getElementById('inspectorTitle');
@@ -441,7 +452,54 @@ class CYDStudioApp {
       }
     });
 
-    // Add Page
+    // ─── Page Stepper Navigation ───────────────────────────────────────────
+    this.btnPrevPageNav.addEventListener('click', () => {
+      const profile = this.config.profiles[this.config.activeProfile];
+      if (!profile || profile.pages.length <= 1) return;
+      const prevIdx = (profile.currentPage - 1 + profile.pages.length) % profile.pages.length;
+      this.switchPage(prevIdx);
+    });
+
+    this.btnNextPageNav.addEventListener('click', () => {
+      const profile = this.config.profiles[this.config.activeProfile];
+      if (!profile || profile.pages.length <= 1) return;
+      const nextIdx = (profile.currentPage + 1) % profile.pages.length;
+      this.switchPage(nextIdx);
+    });
+
+    this.btnRenamePage.addEventListener('click', () => {
+      const profile = this.config.profiles[this.config.activeProfile];
+      if (!profile) return;
+      const page = profile.pages[profile.currentPage];
+      if (!page) return;
+      const newName = prompt(`Nouveau nom pour la page :`, page.name);
+      if (newName && newName.trim()) {
+        page.name = newName.trim();
+        window.cydDeck.saveConfig(this.config);
+        this.renderPagesTabs();
+        this.logTerminal(`[PAGE] Page renommée : "${page.name}"`, 'info');
+      }
+    });
+
+    this.btnDeletePage.addEventListener('click', async () => {
+      const profile = this.config.profiles[this.config.activeProfile];
+      if (!profile || profile.pages.length <= 1) {
+        alert('Impossible de supprimer la seule page restante.');
+        return;
+      }
+      const page = profile.pages[profile.currentPage];
+      if (!confirm(`Supprimer la page "${page.name}" et ses ${page.buttons.length} touches ?`)) return;
+      profile.pages.splice(profile.currentPage, 1);
+      profile.currentPage = Math.min(profile.currentPage, profile.pages.length - 1);
+      await window.cydDeck.saveConfig(this.config);
+      this.config = await window.cydDeck.getConfig();
+      this.renderPagesTabs();
+      this.renderVirtualScreen();
+      this.selectButton(0);
+      this.logTerminal(`[PAGE] Page "${page.name}" supprimée.`, 'warn');
+    });
+
+    // ─── Add Page ──────────────────────────────────────────────────────────
     this.btnAddPage.addEventListener('click', () => {
       const profile = this.config.profiles[this.config.activeProfile];
       const newPageIdx = profile.pages.length;
@@ -465,6 +523,34 @@ class CYDStudioApp {
       this.renderPagesTabs();
       this.switchPage(newPageIdx);
     });
+
+    // ─── Navigation Presets (Inspector 1-click) ────────────────────────────
+    this.presetNextPage.addEventListener('click', () => {
+      this.applyNavPreset('next_page', '➡️ Page Suivante', 'next_page');
+    });
+
+    this.presetPrevPage.addEventListener('click', () => {
+      this.applyNavPreset('prev_page', '⬅️ Page Précédente', 'prev_page');
+    });
+
+    this.presetHomePage.addEventListener('click', () => {
+      this.applyNavPreset('home_page', '🏠 Accueil', 'home_page');
+    });
+  }
+
+  // Applique un preset de navigation à la touche sélectionnée
+  applyNavPreset(action, label, actionKey) {
+    this.inpBtnLabel.value = label;
+    this.inpBtnSub.value = 'Nav CYD';
+    this.selPlugin.value = 'internal';
+    this.handlePluginChange();
+    // Wait for DOM update then set action
+    setTimeout(() => {
+      this.selAction.value = actionKey;
+      this.handleActionChange();
+      this.updateLivePreview();
+    }, 50);
+    this.logTerminal(`[PRESET] Preset "${label}" appliqué — n\'oubliez pas de sauvegarder !`, 'info');
   }
 
   renderProfilesDropdown() {
@@ -477,6 +563,11 @@ class CYDStudioApp {
       if (pName === this.config.activeProfile) opt.selected = true;
       this.selProfile.appendChild(opt);
     });
+
+    const titlebarPill = document.getElementById('titlebarActiveProfileName');
+    if (titlebarPill) {
+      titlebarPill.textContent = this.config.activeProfile;
+    }
   }
 
   switchIconTab(tab) {
@@ -569,15 +660,51 @@ class CYDStudioApp {
   renderPagesTabs() {
     const profile = this.config.profiles[this.config.activeProfile];
     if (!profile) return;
-    this.pagesTabContainer.innerHTML = '';
+    const total = profile.pages.length;
+    const cur = profile.currentPage;
+    const activePage = profile.pages[cur] || profile.pages[0];
 
-    profile.pages.forEach((page, idx) => {
-      const btn = document.createElement('button');
-      btn.className = `page-tab-btn ${idx === profile.currentPage ? 'active' : ''}`;
-      btn.innerHTML = `${page.name}`;
-      btn.addEventListener('click', () => this.switchPage(idx));
-      this.pagesTabContainer.appendChild(btn);
-    });
+    // ── Update stepper badge & title ──────────────────────────────────────
+    if (this.pageCounterBadge) {
+      this.pageCounterBadge.textContent = `PAGE ${cur + 1} / ${total}`;
+    }
+    if (this.pageTitleDisplay) {
+      this.pageTitleDisplay.textContent = activePage ? activePage.name : '';
+    }
+
+    // ── Enable/disable arrows ──────────────────────────────────────────────
+    if (this.btnPrevPageNav) {
+      this.btnPrevPageNav.disabled = total <= 1;
+      this.btnPrevPageNav.classList.toggle('disabled', total <= 1);
+    }
+    if (this.btnNextPageNav) {
+      this.btnNextPageNav.disabled = total <= 1;
+      this.btnNextPageNav.classList.toggle('disabled', total <= 1);
+    }
+
+    // ── Dot indicators (clickable) ─────────────────────────────────────────
+    if (this.pageDotsContainer) {
+      this.pageDotsContainer.innerHTML = '';
+      profile.pages.forEach((page, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `page-dot ${idx === cur ? 'active' : ''}`;
+        dot.title = page.name;
+        dot.addEventListener('click', () => this.switchPage(idx));
+        this.pageDotsContainer.appendChild(dot);
+      });
+    }
+
+    // ── Legacy tab container (hidden but kept for compat) ──────────────────
+    if (this.pagesTabContainer) {
+      this.pagesTabContainer.innerHTML = '';
+      profile.pages.forEach((page, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `page-tab-btn ${idx === cur ? 'active' : ''}`;
+        btn.textContent = page.name;
+        btn.addEventListener('click', () => this.switchPage(idx));
+        this.pagesTabContainer.appendChild(btn);
+      });
+    }
   }
 
   async switchPage(pageIdx) {

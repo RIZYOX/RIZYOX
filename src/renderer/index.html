@@ -11,15 +11,28 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- TOP HEADER -->
+    <!-- CUSTOM TOP TITLEBAR (DRAGGABLE WINDOW BAR) -->
+    <div class="custom-titlebar">
+      <div class="titlebar-drag-area">
+        <div class="titlebar-brand">
+          <img src="./icons/logo-emblem.png" class="titlebar-logo-img" alt="Logo" />
+          <span class="titlebar-text">CYD-DECK <span>STUDIO</span></span>
+          <span class="titlebar-version-tag">PRO</span>
+        </div>
+        <div class="titlebar-center-pill">
+          <span class="titlebar-dot"></span>
+          <span id="titlebarActiveProfileName">🔴 Streaming & Live</span>
+        </div>
+      </div>
+      <!-- Right area reserved for native Windows titlebar overlay buttons -->
+      <div class="titlebar-window-controls-spacer"></div>
+    </div>
+
+    <!-- MAIN APP HEADER -->
     <header class="app-header">
       <div class="brand">
-        <div class="brand-logo">
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
+        <div class="brand-logo-glow">
+          <img src="./icons/logo-emblem.png" class="brand-logo-img" alt="CYD-Deck Logo" />
         </div>
         <div>
           <h1 class="brand-title">CYD-DECK <span>STUDIO</span></h1>
@@ -90,11 +103,35 @@
       <!-- LEFT: SIMULATOR & PAGES -->
       <section class="simulator-section">
         <div class="section-top">
-          <div class="pages-tabs" id="pagesTabContainer">
-            <!-- Injected by app.js -->
+          <!-- UNIFIED PAGE NAVIGATION CONTROLLER -->
+          <div class="page-stepper-bar">
+            <!-- PREV PAGE BUTTON -->
+            <button class="btn-page-nav-arrow" id="btnPrevPageNav" title="Page Précédente (⬅️)">
+              ◀
+            </button>
+
+            <!-- CURRENT PAGE INFO -->
+            <div class="page-info-pill">
+              <span class="page-counter-badge" id="pageCounterBadge">PAGE 1 / 2</span>
+              <span class="page-title-display" id="pageTitleDisplay">🔴 Studio & Live</span>
+              <button class="btn-rename-page-sm" id="btnRenamePage" title="Renommer cette page">✏️</button>
+            </div>
+
+            <!-- NEXT PAGE BUTTON -->
+            <button class="btn-page-nav-arrow" id="btnNextPageNav" title="Page Suivante (➡️)">
+              ▶
+            </button>
+
+            <!-- PAGE DOTS INDICATORS -->
+            <div class="page-dots-container" id="pageDotsContainer">
+              <!-- Dots injected by app.js -->
+            </div>
           </div>
+
+          <!-- PAGE ACTIONS -->
           <div class="page-controls">
-            <button class="btn-sm btn-outline" id="btnAddPage">+ Nouvelle Page</button>
+            <button class="btn-sm btn-outline" id="btnAddPage">➕ Ajouter Page</button>
+            <button class="btn-sm btn-outline danger" id="btnDeletePage" title="Supprimer la page active">🗑️ Supprimer</button>
             <button class="btn-sm btn-neon" id="btnSyncCYD" title="Forcer la synchronisation avec l'ESP32">
               ⚡ Synchroniser CYD
             </button>
@@ -234,6 +271,16 @@
                 <input type="range" id="bgOverlaySlider" min="0" max="90" value="40" class="range-slider">
                 <span id="bgOverlayVal">40%</span>
               </div>
+            </div>
+          </div>
+
+          <!-- PRESETS DE NAVIGATION RAPIDES -->
+          <div class="form-group">
+            <label class="form-label">Presets Navigation 1-Clic</label>
+            <div class="nav-presets-row">
+              <button class="btn-nav-preset" id="presetNextPage">➡️ Suivante</button>
+              <button class="btn-nav-preset" id="presetPrevPage">⬅️ Précédente</button>
+              <button class="btn-nav-preset" id="presetHomePage">🏠 Accueil</button>
             </div>
           </div>
 
