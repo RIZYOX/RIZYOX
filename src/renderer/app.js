@@ -162,6 +162,28 @@ class CYDStudioApp {
     this.chkAutoStart = document.getElementById('chkAutoStart');
     this.autoStartLabel = document.getElementById('autoStartLabel');
     this.settingsStatusMsg = document.getElementById('settingsStatusMsg');
+
+    // Wi-Fi & WebSocket Card + Modal
+    this.wsStatusUrl = document.getElementById('wsStatusUrl');
+    this.btnConfigWifi = document.getElementById('btnConfigWifi');
+    this.wifiInfoModal = document.getElementById('wifiInfoModal');
+    this.btnCloseWifiModal = document.getElementById('btnCloseWifiModal');
+    this.btnCloseWifiFooter = document.getElementById('btnCloseWifiFooter');
+    this.wifiIpDisplay = document.getElementById('wifiIpDisplay');
+    this.wifiPortDisplay = document.getElementById('wifiPortDisplay');
+    this.wifiUrlCode = document.getElementById('wifiUrlCode');
+    this.wifiClientsCount = document.getElementById('wifiClientsCount');
+    this.btnCopyWsUrl = document.getElementById('btnCopyWsUrl');
+
+    // Custom Cyberpunk Dialogs (Confirm, Prompt, Alert)
+    this.customDialogModal = document.getElementById('customDialogModal');
+    this.dialogTitle = document.getElementById('dialogTitle');
+    this.dialogMessage = document.getElementById('dialogMessage');
+    this.dialogInputContainer = document.getElementById('dialogInputContainer');
+    this.dialogInput = document.getElementById('dialogInput');
+    this.btnDialogCancel = document.getElementById('btnDialogCancel');
+    this.btnDialogConfirm = document.getElementById('btnDialogConfirm');
+    this.btnCancelDialog = document.getElementById('btnCancelDialog');
   }
 
   async start() {
@@ -179,6 +201,14 @@ class CYDStudioApp {
     if (likely) {
       this.logTerminal(`[SERIAL] Port ESP32 détecté: ${likely.path} (${likely.friendlyName})`, 'info');
     }
+
+    // Refresh Wi-Fi server status
+    try {
+      const srv = await window.cydDeck.getServerInfo();
+      if (srv && this.wsStatusUrl) {
+        this.wsStatusUrl.textContent = `${srv.localIp}:${srv.wsPort}`;
+      }
+    } catch (_) {}
   }
 
   initEvents() {
@@ -258,7 +288,7 @@ class CYDStudioApp {
 
     this.btnConfirmCreateProfile.addEventListener('click', async () => {
       const name = this.inpNewProfileName.value.trim();
-      if (!name) return alert('Veuillez entrer un nom pour le profil.');
+      if (!name) return this.showAlert('Nom requis', 'Veuillez entrer un nom pour le nouveau profil.');
       const template = this.selProfileTemplate.value;
       try {
         await window.cydDeck.createProfile(name, template);
@@ -270,16 +300,16 @@ class CYDStudioApp {
         this.selectButton(0);
         this.logTerminal(`[PROFIL] Nouveau profil "${name}" créé avec succès !`, 'info');
       } catch (err) {
-        alert(err.message || 'Erreur lors de la création du profil');
+        this.showAlert('Erreur Profil', err.message || 'Erreur lors de la création du profil');
       }
     });
 
     this.btnDuplicateProfile.addEventListener('click', async () => {
       const current = this.config.activeProfile;
-      const newName = prompt(`Nom de la copie du profil "${current}" :`, `${current} (Copie)`);
-      if (newName && newName.trim()) {
+      const newName = await this.showPrompt('Dupliquer le Profil', `Nom de la copie pour "${current}" :`, `${current} (Copie)`);
+      if (newName) {
         try {
-          await window.cydDeck.duplicateProfile(current, newName.trim());
+          await window.cydDeck.duplicateProfile(current, newName);
           this.config = await window.cydDeck.getConfig();
           this.renderProfilesDropdown();
           this.renderPagesTabs();
@@ -287,7 +317,7 @@ class CYDStudioApp {
           this.selectButton(0);
           this.logTerminal(`[PROFIL] Profil dupliqué en "${newName}" !`, 'info');
         } catch (err) {
-          alert(err.message);
+          this.showAlert('Erreur', err.message);
         }
       }
     });
@@ -295,9 +325,10 @@ class CYDStudioApp {
     this.btnDeleteProfile.addEventListener('click', async () => {
       const current = this.config.activeProfile;
       const count = Object.keys(this.config.profiles).length;
-      if (count <= 1) return alert('Impossible de supprimer le seul profil restant.');
+      if (count <= 1) return this.showAlert('Action Impossible', 'Impossible de supprimer le seul profil restant.');
 
-      if (confirm(`Voulez-vous vraiment supprimer le profil "${current}" ?`)) {
+      const ok = await this.showConfirm('Supprimer le Profil', `Voulez-vous vraiment supprimer définitivement le profil "${current}" ?`, true);
+      if (ok) {
         try {
           await window.cydDeck.deleteProfile(current);
           this.config = await window.cydDeck.getConfig();
@@ -307,7 +338,7 @@ class CYDStudioApp {
           this.selectButton(0);
           this.logTerminal(`[PROFIL] Profil "${current}" supprimé.`, 'warn');
         } catch (err) {
-          alert(err.message);
+          this.showAlert('Erreur', err.message);
         }
       }
     });
@@ -480,14 +511,14 @@ class CYDStudioApp {
       this.switchPage(nextIdx);
     });
 
-    this.btnRenamePage.addEventListener('click', () => {
+    this.btnRenamePage.addEventListener('click', async () => {
       const profile = this.config.profiles[this.config.activeProfile];
       if (!profile) return;
       const page = profile.pages[profile.currentPage];
       if (!page) return;
-      const newName = prompt(`Nouveau nom pour la page :`, page.name);
-      if (newName && newName.trim()) {
-        page.name = newName.trim();
+      const newName = await this.showPrompt('Renommer la Page', `Entrez le nouveau nom pour la page :`, page.name);
+      if (newName) {
+        page.name = newName;
         window.cydDeck.saveConfig(this.config);
         this.renderPagesTabs();
         this.logTerminal(`[PAGE] Page renommée : "${page.name}"`, 'info');
@@ -497,11 +528,13 @@ class CYDStudioApp {
     this.btnDeletePage.addEventListener('click', async () => {
       const profile = this.config.profiles[this.config.activeProfile];
       if (!profile || profile.pages.length <= 1) {
-        alert('Impossible de supprimer la seule page restante.');
+        await this.showAlert('Suppression impossible', 'Impossible de supprimer la seule page restante.');
         return;
       }
       const page = profile.pages[profile.currentPage];
-      if (!confirm(`Supprimer la page "${page.name}" et ses ${page.buttons.length} touches ?`)) return;
+      const ok = await this.showConfirm('Supprimer la Page', `Supprimer définitivement la page "${page.name}" et ses ${page.buttons.length} touches ?`, true);
+      if (!ok) return;
+
       profile.pages.splice(profile.currentPage, 1);
       profile.currentPage = Math.min(profile.currentPage, profile.pages.length - 1);
       await window.cydDeck.saveConfig(this.config);
@@ -631,6 +664,107 @@ class CYDStudioApp {
         }
       });
     }
+
+    // ─── Wi-Fi / WebSocket Info Modal ────────────────────────────────────
+    if (this.btnConfigWifi) {
+      this.btnConfigWifi.addEventListener('click', async () => {
+        try {
+          const srv = await window.cydDeck.getServerInfo();
+          if (srv) {
+            this.wifiIpDisplay.textContent = srv.localIp;
+            this.wifiPortDisplay.textContent = srv.wsPort;
+            this.wifiUrlCode.textContent = srv.wsUrl;
+            this.wifiClientsCount.textContent = `${srv.clientsCount} appareil(s)`;
+            document.querySelectorAll('.ip-placeholder').forEach(el => el.textContent = srv.localIp);
+            if (this.wsStatusUrl) this.wsStatusUrl.textContent = `${srv.localIp}:${srv.wsPort}`;
+          }
+        } catch (_) {}
+        this.wifiInfoModal.style.display = 'flex';
+      });
+    }
+
+    const closeWifi = () => { if (this.wifiInfoModal) this.wifiInfoModal.style.display = 'none'; };
+    if (this.btnCloseWifiModal) this.btnCloseWifiModal.addEventListener('click', closeWifi);
+    if (this.btnCloseWifiFooter) this.btnCloseWifiFooter.addEventListener('click', closeWifi);
+
+    if (this.btnCopyWsUrl) {
+      this.btnCopyWsUrl.addEventListener('click', () => {
+        const url = this.wifiUrlCode.textContent;
+        navigator.clipboard.writeText(url);
+        this.btnCopyWsUrl.textContent = '✅ Copié !';
+        setTimeout(() => { this.btnCopyWsUrl.textContent = '📋 Copier'; }, 2000);
+      });
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // CUSTOM CYBERPUNK DIALOGS (Confirm / Prompt / Alert)
+  // ══════════════════════════════════════════════════════════
+  showConfirm(title, message, isDanger = false) {
+    return new Promise((resolve) => {
+      this.dialogTitle.textContent = title || 'Confirmation';
+      this.dialogMessage.textContent = message || 'Êtes-vous sûr ?';
+      this.dialogInputContainer.style.display = 'none';
+      this.btnDialogCancel.style.display = 'inline-block';
+      this.btnDialogConfirm.textContent = isDanger ? 'Supprimer' : 'Confirmer';
+      this.btnDialogConfirm.className = isDanger ? 'btn-danger' : 'btn-primary';
+
+      const cleanup = (val) => {
+        this.customDialogModal.style.display = 'none';
+        resolve(val);
+      };
+
+      this.btnDialogConfirm.onclick = () => cleanup(true);
+      this.btnDialogCancel.onclick = () => cleanup(false);
+      this.btnCancelDialog.onclick = () => cleanup(false);
+      this.customDialogModal.style.display = 'flex';
+    });
+  }
+
+  showPrompt(title, message, defaultValue = '') {
+    return new Promise((resolve) => {
+      this.dialogTitle.textContent = title || 'Saisie';
+      this.dialogMessage.textContent = message || '';
+      this.dialogInputContainer.style.display = 'block';
+      this.dialogInput.value = defaultValue;
+      this.btnDialogCancel.style.display = 'inline-block';
+      this.btnDialogConfirm.textContent = 'Valider';
+      this.btnDialogConfirm.className = 'btn-primary';
+
+      const cleanup = (val) => {
+        this.customDialogModal.style.display = 'none';
+        resolve(val);
+      };
+
+      this.btnDialogConfirm.onclick = () => cleanup(this.dialogInput.value.trim());
+      this.btnDialogCancel.onclick = () => cleanup(null);
+      this.btnCancelDialog.onclick = () => cleanup(null);
+      this.customDialogModal.style.display = 'flex';
+      setTimeout(() => {
+        this.dialogInput.focus();
+        this.dialogInput.select();
+      }, 50);
+    });
+  }
+
+  showAlert(title, message) {
+    return new Promise((resolve) => {
+      this.dialogTitle.textContent = title || 'Information';
+      this.dialogMessage.textContent = message || '';
+      this.dialogInputContainer.style.display = 'none';
+      this.btnDialogCancel.style.display = 'none';
+      this.btnDialogConfirm.textContent = 'Compris';
+      this.btnDialogConfirm.className = 'btn-primary';
+
+      const cleanup = () => {
+        this.customDialogModal.style.display = 'none';
+        resolve();
+      };
+
+      this.btnDialogConfirm.onclick = cleanup;
+      this.btnCancelDialog.onclick = cleanup;
+      this.customDialogModal.style.display = 'flex';
+    });
   }
 
   // Applique un preset de navigation à la touche sélectionnée et sauvegarde automatiquement
@@ -730,10 +864,11 @@ class CYDStudioApp {
           <span class="icon-del-btn" title="Supprimer">&times;</span>
         `;
 
-        item.addEventListener('click', (e) => {
+        item.addEventListener('click', async (e) => {
           if (e.target.classList.contains('icon-del-btn')) {
             e.stopPropagation();
-            if (confirm(`Supprimer l'icône "${customIcon.name}" ?`)) {
+            const ok = await this.showConfirm('Supprimer l\'Icône', `Supprimer définitivement l'icône "${customIcon.name}" ?`, true);
+            if (ok) {
               window.cydDeck.deleteCustomIcon(customIcon.id);
               this.config.customIcons = this.config.customIcons.filter(i => i.id !== customIcon.id);
               this.renderIconPickers();

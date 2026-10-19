@@ -42,6 +42,7 @@ contextBridge.exposeInMainWorld('cydDeck', {
   windowShow: () => ipcRenderer.invoke('window-show'),
   windowMinimize: () => ipcRenderer.invoke('window-minimize'),
   windowMaximize: () => ipcRenderer.invoke('window-maximize'),
+  getServerInfo: () => ipcRenderer.invoke('get-server-info'),
 
   // Events from Main Process
   onSerialStatus: (callback) => ipcRenderer.on('serial-status', (_, data) => callback(data)),

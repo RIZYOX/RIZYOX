@@ -89,6 +89,18 @@
           </button>
         </div>
 
+        <!-- WEBSOCKET (WI-FI) STATUS -->
+        <div class="status-card" id="wsStatusCard">
+          <div class="status-indicator active" id="wsLed"></div>
+          <div class="status-info">
+            <span class="status-label">SERVEUR WI-FI</span>
+            <span class="status-val" id="wsStatusUrl">Port 8765</span>
+          </div>
+          <button class="btn-action-sm" id="btnConfigWifi" title="Guide & Connexion Wi-Fi CYD">
+            📡 Wi-Fi
+          </button>
+        </div>
+
         <!-- SYSTEM MONITOR MINI GAUGES -->
         <div class="system-mini-gauges">
           <div class="gauge-pill">
@@ -431,6 +443,74 @@
       <div class="modal-footer">
         <button class="btn-secondary" id="btnCloseSettingsFooter">Fermer</button>
         <button class="btn-primary" id="btnSaveSettings">💾 Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SERVEUR WEBSOCKET & CONNEXION WI-FI CYD -->
+  <div class="modal-backdrop" id="wifiInfoModal" style="display: none;">
+    <div class="modal-card wifi-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">📡 Serveur WebSocket & Wi-Fi CYD</h3>
+        <button class="modal-close-btn" id="btnCloseWifiModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          Votre PC héberge un serveur WebSocket haute vitesse pour contrôler votre Stream Deck sans aucun câble USB.
+        </p>
+
+        <div class="wifi-server-box">
+          <div class="wifi-server-row">
+            <span class="wifi-label">🖥️ Adresse IP du PC :</span>
+            <span class="wifi-val" id="wifiIpDisplay">192.168.10.136</span>
+          </div>
+          <div class="wifi-server-row">
+            <span class="wifi-label">🔌 Port WebSocket :</span>
+            <span class="wifi-val" id="wifiPortDisplay">8765</span>
+          </div>
+          <div class="wifi-server-row highlight">
+            <span class="wifi-label">🌐 URL de Connexion :</span>
+            <code class="wifi-url-code" id="wifiUrlCode">ws://192.168.10.136:8765</code>
+            <button class="btn-action-sm" id="btnCopyWsUrl" title="Copier l'URL">📋 Copier</button>
+          </div>
+          <div class="wifi-server-row">
+            <span class="wifi-label">🟢 Clients Connectés :</span>
+            <span class="wifi-val-badge" id="wifiClientsCount">0 appareil(s)</span>
+          </div>
+        </div>
+
+        <div class="wifi-guide-section">
+          <h4 class="settings-section-title">📱 Comment connecter votre ESP32 CYD en Wi-Fi :</h4>
+          <ol class="wifi-guide-steps">
+            <li>Ouvrez le code C++ dans <code>firmware/src/main.cpp</code>.</li>
+            <li>Décommentez <code>#define ENABLE_WIFI</code> et entrez le nom et le mot de passe de votre box Wi-Fi.</li>
+            <li>Renseignez l'IP du PC ci-dessus : <code>const char* WS_SERVER_HOST = "<span class="ip-placeholder">192.168.10.136</span>";</code></li>
+            <li>Téléversez le firmware : votre CYD se connecte sans fil instantanément ! 🚀</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="btnCloseWifiFooter">J'ai compris !</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: BOÎTE DE DIALOGUE CYBERPUNK (Remplace alert, confirm et prompt) -->
+  <div class="modal-backdrop" id="customDialogModal" style="display: none;">
+    <div class="modal-card dialog-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="dialogTitle">Confirmation</h3>
+        <button class="modal-close-btn" id="btnCancelDialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="dialog-message" id="dialogMessage"></p>
+        <div id="dialogInputContainer" style="display: none; margin-top: 14px;">
+          <input type="text" class="form-input" id="dialogInput" placeholder="Saisir une valeur..." />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnDialogCancel">Annuler</button>
+        <button class="btn-primary" id="btnDialogConfirm">Confirmer</button>
       </div>
     </div>
   </div>

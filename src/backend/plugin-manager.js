@@ -2,6 +2,8 @@ const { EventEmitter } = require('events');
 const obsPlugin = require('./plugins/obs-plugin');
 const discordPlugin = require('./plugins/discord-plugin');
 const systemPlugin = require('./plugins/system-plugin');
+const voicemodPlugin = require('./plugins/voicemod-plugin');
+const streamlabsPlugin = require('./plugins/streamlabs-plugin');
 const configStore = require('./config-store');
 
 class PluginManager extends EventEmitter {
@@ -9,6 +11,8 @@ class PluginManager extends EventEmitter {
     super();
     this.plugins = {
       obs: obsPlugin,
+      streamlabs: streamlabsPlugin,
+      voicemod: voicemodPlugin,
       discord: discordPlugin,
       system: systemPlugin
     };

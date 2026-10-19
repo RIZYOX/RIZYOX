@@ -12,6 +12,21 @@
 #include <ArduinoJson.h>
 
 // ----------------------------------------------------------------------------
+// OPTION CONNEXION SANS FIL : WI-FI & WEBSOCKET
+// Décommentez la ligne ci-dessous si vous souhaitez utiliser le Wi-Fi au lieu de l'USB !
+// ----------------------------------------------------------------------------
+// #define ENABLE_WIFI
+#ifdef ENABLE_WIFI
+  #include <WiFi.h>
+  #include <WebSocketsClient.h>
+  const char* WIFI_SSID     = "VOTRE_BOX_WIFI";
+  const char* WIFI_PASSWORD = "MOT_DE_PASSE";
+  const char* WS_HOST       = "192.168.10.136"; // L'adresse IP de votre PC affichée dans CYD-Deck Studio
+  const int   WS_PORT       = 8765;
+  WebSocketsClient webSocket;
+#endif
+
+// ----------------------------------------------------------------------------
 // PIN DEFINITIONS & HARDWARE SPECIFICATIONS
 // ----------------------------------------------------------------------------
 #define XPT2046_IRQ   36
@@ -236,7 +251,22 @@ void processSerialCommand(const String& jsonStr) {
   }
 }
 
-// Send Touch Event to PC over Serial
+#ifdef ENABLE_WIFI
+void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
+  if (type == WStype_CONNECTED) {
+    isConnectedToPC = true;
+    drawStatusBar();
+    webSocket.sendTXT("{\"event\":\"READY\",\"device\":\"ESP32-CYD-WIFI\"}");
+  } else if (type == WStype_DISCONNECTED) {
+    isConnectedToPC = false;
+    drawStatusBar();
+  } else if (type == WStype_TEXT) {
+    processSerialCommand((char*)payload);
+  }
+}
+#endif
+
+// Send Touch Event to PC over Serial or Wi-Fi
 void sendTouchEvent(int buttonIndex) {
   // Beep feedback
   digitalWrite(BUZZER_PIN, HIGH);
@@ -246,11 +276,20 @@ void sendTouchEvent(int buttonIndex) {
   // Visual press feedback
   drawButton(buttonIndex, true);
 
-  // Send JSON frame over Serial
+  // Send JSON frame over Serial & Wi-Fi
   JsonDocument out;
   out["event"] = "TOUCH";
   out["idx"] = buttonIndex;
   out["type"] = "click";
+
+#ifdef ENABLE_WIFI
+  if (WiFi.status() == WL_CONNECTED) {
+    String outStr;
+    serializeJson(out, outStr);
+    webSocket.sendTXT(outStr);
+  }
+#endif
+
   serializeJson(out, Serial);
   Serial.println();
 
@@ -322,8 +361,26 @@ void setup() {
   tft.setTextColor(tft.color565(96, 165, 250));
   tft.setTextDatum(MC_DATUM);
   tft.drawString("CYD-DECK STUDIO", SCREEN_WIDTH / 2, 90, 4);
+
+#ifdef ENABLE_WIFI
+  tft.setTextColor(TFT_WHITE);
+  tft.drawString("Connexion Wi-Fi...", SCREEN_WIDTH / 2, 130, 2);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  int retry = 0;
+  while (WiFi.status() != WL_CONNECTED && retry < 20) {
+    delay(400);
+    retry++;
+  }
+  if (WiFi.status() == WL_CONNECTED) {
+    webSocket.begin(WS_HOST, WS_PORT, "/");
+    webSocket.onEvent(webSocketEvent);
+    webSocket.setReconnectInterval(3000);
+    tft.drawString("Wi-Fi Connecté !", SCREEN_WIDTH / 2, 160, 2);
+  }
+#else
   tft.setTextColor(TFT_WHITE);
   tft.drawString("Connexion USB...", SCREEN_WIDTH / 2, 130, 2);
+#endif
 
   delay(600);
 
@@ -335,6 +392,12 @@ void setup() {
 }
 
 void loop() {
+#ifdef ENABLE_WIFI
+  if (WiFi.status() == WL_CONNECTED) {
+    webSocket.loop();
+  }
+#endif
+
   // Read Serial commands from PC
   if (Serial.available()) {
     String line = Serial.readStringUntil('\n');

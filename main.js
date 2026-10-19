@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu, powerMonitor, nativeImage, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 // ─── Singleton: prevent multiple instances ────────────────────────────────────
 const gotTheLock = app.requestSingleInstanceLock();
@@ -436,3 +437,28 @@ ipcMain.handle('window-maximize', () => {
   if (mainWindow.isMaximized()) mainWindow.unmaximize();
   else mainWindow.maximize();
 });
+
+// ─── IPC: Server Info & Wi-Fi ────────────────────────────────────────────────
+function getLocalIpAddress() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return '127.0.0.1';
+}
+
+ipcMain.handle('get-server-info', () => {
+  const ip = getLocalIpAddress();
+  const port = wsServer.port || 8765;
+  return {
+    localIp: ip,
+    wsPort: port,
+    clientsCount: wsServer.clients.size,
+    wsUrl: `ws://${ip}:${port}`
+  };
+});
+

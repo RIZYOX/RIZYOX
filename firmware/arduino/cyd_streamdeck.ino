@@ -20,6 +20,18 @@
 #include <XPT2046_Touchscreen.h>
 #include <ArduinoJson.h>
 
+// Option Wi-Fi sans fil (décommentez pour activer) :
+// #define ENABLE_WIFI
+#ifdef ENABLE_WIFI
+  #include <WiFi.h>
+  #include <WebSocketsClient.h>
+  const char* WIFI_SSID     = "VOTRE_BOX_WIFI";
+  const char* WIFI_PASSWORD = "MOT_DE_PASSE";
+  const char* WS_HOST       = "192.168.10.136"; // IP affichée dans CYD-Deck Studio
+  const int   WS_PORT       = 8765;
+  WebSocketsClient webSocket;
+#endif
+
 #define XPT2046_IRQ   36
 #define XPT2046_MOSI  32
 #define XPT2046_MISO  39

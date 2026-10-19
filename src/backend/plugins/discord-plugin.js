@@ -16,16 +16,15 @@ class DiscordPlugin extends EventEmitter {
   async executeAction(action, params = {}) {
     switch (action) {
       case 'toggle_mute':
-        // Default Discord global hotkey or custom user hotkey
         this.state.isMuted = !this.state.isMuted;
         this.emit('stateChanged', this.state);
-        // By default on Discord, standard shortcut or simulate key
-        return await windowsKeys.sendShortcut(params.hotkey || '^+m'); // Ctrl+Shift+M
+        // Intercepte globalement en arrière-plan (même en plein écran de jeu)
+        return await windowsKeys.sendGlobalHotKey(params.hotkey || 'ctrl+shift+m');
 
       case 'toggle_deaf':
         this.state.isDeafened = !this.state.isDeafened;
         this.emit('stateChanged', this.state);
-        return await windowsKeys.sendShortcut(params.hotkey || '^+d'); // Ctrl+Shift+D
+        return await windowsKeys.sendGlobalHotKey(params.hotkey || 'ctrl+shift+d');
 
       case 'open_discord':
         return await windowsKeys.launch('discord:');
@@ -37,8 +36,20 @@ class DiscordPlugin extends EventEmitter {
 
   getActionsList() {
     return [
-      { id: 'toggle_mute', label: 'Micro: Mute / Unmute', params: [{ name: 'hotkey', type: 'text', placeholder: 'Raccourci Discord (Défaut: ^+m)' }] },
-      { id: 'toggle_deaf', label: 'Casque: Deafen / Activer', params: [{ name: 'hotkey', type: 'text', placeholder: 'Raccourci Discord (Défaut: ^+d)' }] },
+      {
+        id: 'toggle_mute',
+        label: 'Micro: Mute / Unmute (Global)',
+        params: [
+          { name: 'hotkey', type: 'text', placeholder: 'Défaut: ctrl+shift+m (ou f13)' }
+        ]
+      },
+      {
+        id: 'toggle_deaf',
+        label: 'Casque: Deafen / Sourdine (Global)',
+        params: [
+          { name: 'hotkey', type: 'text', placeholder: 'Défaut: ctrl+shift+d (ou f14)' }
+        ]
+      },
       { id: 'open_discord', label: 'Ouvrir Discord', params: [] }
     ];
   }
