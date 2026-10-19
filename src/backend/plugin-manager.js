@@ -17,7 +17,6 @@ class PluginManager extends EventEmitter {
   }
 
   initPluginEvents() {
-    // Forward OBS events
     obsPlugin.on('stateChanged', (state) => {
       this.emit('pluginStateUpdate', { pluginId: 'obs', state });
     });
@@ -26,7 +25,6 @@ class PluginManager extends EventEmitter {
       this.emit('pluginConnectionUpdate', { pluginId: 'obs', connected });
     });
 
-    // Forward Discord events
     discordPlugin.on('stateChanged', (state) => {
       this.emit('pluginStateUpdate', { pluginId: 'discord', state });
     });
@@ -37,17 +35,16 @@ class PluginManager extends EventEmitter {
 
     const { pluginId, action, params } = button;
 
-    // Internal navigation actions
+    // Internal navigation & Profile actions
     if (pluginId === 'internal') {
       const profile = configStore.get('profiles')[configStore.get('activeProfile')];
-      if (!profile) return;
 
-      if (action === 'next_page') {
+      if (action === 'next_page' && profile) {
         const nextIdx = (profile.currentPage + 1) % profile.pages.length;
         configStore.setCurrentPage(nextIdx);
         this.emit('pageChanged', nextIdx);
         return { success: true, pageIndex: nextIdx };
-      } else if (action === 'prev_page') {
+      } else if (action === 'prev_page' && profile) {
         const prevIdx = (profile.currentPage - 1 + profile.pages.length) % profile.pages.length;
         configStore.setCurrentPage(prevIdx);
         this.emit('pageChanged', prevIdx);
@@ -57,6 +54,12 @@ class PluginManager extends EventEmitter {
         configStore.setCurrentPage(targetIdx);
         this.emit('pageChanged', targetIdx);
         return { success: true, pageIndex: targetIdx };
+      } else if (action === 'switch_profile') {
+        if (params.profileName) {
+          configStore.switchProfile(params.profileName);
+          this.emit('profileChanged', params.profileName);
+          return { success: true, profileName: params.profileName };
+        }
       }
     }
 
@@ -85,13 +88,15 @@ class PluginManager extends EventEmitter {
       };
     }
 
-    // Add internal navigation
+    // Internal navigation & profile switching
+    const profilesList = configStore.getProfilesList();
     list['internal'] = {
-      name: 'Navigation CYD',
+      name: 'Navigation & Profils CYD',
       actions: [
         { id: 'next_page', label: 'Page Suivante ➡️', params: [] },
         { id: 'prev_page', label: 'Page Précédente ⬅️', params: [] },
-        { id: 'go_to_page', label: 'Aller à la page...', params: [{ name: 'pageIndex', type: 'number', placeholder: 'Numéro de page' }] }
+        { id: 'go_to_page', label: 'Aller à la page...', params: [{ name: 'pageIndex', type: 'number', placeholder: 'Numéro de page' }] },
+        { id: 'switch_profile', label: 'Changer de Profil...', params: [{ name: 'profileName', type: 'select', options: profilesList }] }
       ]
     };
 

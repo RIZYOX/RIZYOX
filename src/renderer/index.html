@@ -27,6 +27,21 @@
         </div>
       </div>
 
+      <!-- PROFILE SELECTOR BAR IN HEADER -->
+      <div class="profile-header-bar">
+        <div class="profile-select-wrapper">
+          <span class="profile-prefix-label">PROFIL :</span>
+          <select id="selProfile" class="profile-dropdown-select" title="Changer de profil actif">
+            <!-- Injected by app.js -->
+          </select>
+        </div>
+        <div class="profile-actions-buttons">
+          <button class="btn-profile-tool" id="btnNewProfile" title="Créer un nouveau profil">+ Nouveau</button>
+          <button class="btn-profile-tool" id="btnDuplicateProfile" title="Dupliquer le profil actif">📋</button>
+          <button class="btn-profile-tool danger" id="btnDeleteProfile" title="Supprimer le profil actif">🗑️</button>
+        </div>
+      </div>
+
       <!-- HARDWARE STATUS BAR -->
       <div class="hardware-status-group">
         <!-- SERIAL PORT STATUS -->
@@ -144,11 +159,31 @@
             <input type="text" id="inpBtnSub" class="form-input" placeholder="Ex: Toggle, Live, 30s">
           </div>
 
-          <!-- ICON SELECTOR -->
+          <!-- ICON SELECTOR WITH CUSTOM IMPORT -->
           <div class="form-group">
-            <label class="form-label">Icône Visuelle</label>
+            <div class="label-with-action">
+              <label class="form-label">Icône Visuelle</label>
+              <button class="btn-import-icon-sm" id="btnUploadCustomIcon">
+                📁 Importer Image
+              </button>
+            </div>
+
+            <!-- TABS: Built-in vs Custom Icons -->
+            <div class="icon-subtabs">
+              <button class="icon-subtab-btn active" id="tabBuiltinIcons">Catalogue Prédéfini</button>
+              <button class="icon-subtab-btn" id="tabCustomIcons">Mes Icônes (<span id="customIconsCount">0</span>)</button>
+            </div>
+
+            <!-- BUILTIN ICONS GRID -->
             <div class="icon-picker-grid" id="iconPickerGrid">
               <!-- Injected by app.js -->
+            </div>
+
+            <!-- CUSTOM USER ICONS GRID -->
+            <div class="icon-picker-grid custom-icons-view" id="customIconsGrid" style="display: none;">
+              <div class="empty-custom-icons" id="emptyCustomIconsMsg">
+                Aucune image importée. Cliquez sur "📁 Importer Image" pour ajouter des logos PNG, SVG ou JPG !
+              </div>
             </div>
           </div>
 
@@ -156,13 +191,14 @@
           <div class="form-group">
             <label class="form-label">Couleur de fond & Thème</label>
             <div class="color-presets-row" id="colorPresetsRow">
-              <button class="color-dot" data-color="#7f1d1d" style="background: #7f1d1d;"></button>
-              <button class="color-dot" data-color="#1e3a8a" style="background: #1e3a8a;"></button>
-              <button class="color-dot" data-color="#14532d" style="background: #14532d;"></button>
-              <button class="color-dot" data-color="#701a75" style="background: #701a75;"></button>
-              <button class="color-dot" data-color="#312e81" style="background: #312e81;"></button>
-              <button class="color-dot" data-color="#1e293b" style="background: #1e293b;"></button>
-              <button class="color-dot" data-color="#0f172a" style="background: #0f172a;"></button>
+              <button class="color-dot" data-color="#7f1d1d" style="background: #7f1d1d;" title="Rouge"></button>
+              <button class="color-dot" data-color="#1e3a8a" style="background: #1e3a8a;" title="Bleu"></button>
+              <button class="color-dot" data-color="#14532d" style="background: #14532d;" title="Vert"></button>
+              <button class="color-dot" data-color="#701a75" style="background: #701a75;" title="Violet"></button>
+              <button class="color-dot" data-color="#c2410c" style="background: #c2410c;" title="Orange"></button>
+              <button class="color-dot" data-color="#312e81" style="background: #312e81;" title="Indigo"></button>
+              <button class="color-dot" data-color="#1e293b" style="background: #1e293b;" title="Gris foncé"></button>
+              <button class="color-dot" data-color="#0f172a" style="background: #0f172a;" title="Onyx"></button>
               <input type="color" id="inpCustomColor" class="custom-color-input" value="#1e3a8a" title="Couleur personnalisée">
             </div>
           </div>
@@ -174,7 +210,7 @@
               <option value="obs">🎥 OBS Studio v5</option>
               <option value="discord">🎧 Discord (Micro & Casque)</option>
               <option value="system">⌨️ Système & Touches Médias</option>
-              <option value="internal">📱 Navigation Pages CYD</option>
+              <option value="internal">📱 Navigation & Profils CYD</option>
             </select>
           </div>
 
@@ -198,6 +234,35 @@
         </div>
       </aside>
     </main>
+  </div>
+
+  <!-- MODAL: NOUVEAU PROFIL -->
+  <div class="modal-backdrop" id="newProfileModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Créer un Nouveau Profil</h3>
+        <button class="modal-close-btn" id="btnCloseNewProfileModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="inpNewProfileName">Nom du Profil</label>
+          <input type="text" id="inpNewProfileName" class="form-input" placeholder="Ex: 🎨 Suite Adobe, 🕹️ Simulateur, 🚀 Productivité">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="selProfileTemplate">Modèle de départ</label>
+          <select id="selProfileTemplate" class="form-select">
+            <option value="blank">Vierge (6 touches personnalisables)</option>
+            <option value="streaming">🔴 Streaming & Live (OBS, Mic, Replay)</option>
+            <option value="dev">💻 Dev & Code (VS Code, Terminal, Git)</option>
+            <option value="gaming">🎮 Gaming & Discord (Discord, Audio, Clips)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnCancelNewProfile">Annuler</button>
+        <button class="btn-primary" id="btnConfirmCreateProfile">Créer le Profil</button>
+      </div>
+    </div>
   </div>
 
   <!-- MODAL: OBS SETTINGS -->

@@ -20,6 +20,8 @@
 ## 🌟 Points Forts du Projet
 
 - 🖥️ **Simulateur Virtuel Interactif :** Testez et configurez vos touches en direct depuis l'application Electron, même sans votre ESP32 branché !
+- 📑 **Système Multi-Profils Avancé :** Basculez en 1 clic entre vos profils dédiés (*🔴 Streaming & Live*, *💻 Dev & Productivité*, *🎮 Gaming & Discord*). Possibilité de créer, dupliquer, et même **changer de profil au doigt directement depuis l'écran tactile CYD** !
+- 🎨 **Importateur d'Icônes Personnalisées :** Importez vos propres images, logos et stickers (PNG, JPG, SVG, WebP) en plus du catalogue d'icônes vectorielles intégrées.
 - 🎥 **Plugin OBS Studio v5 Natif :** Changement de scène, toggle mute micro, démarrage/arrêt stream et enregistrement avec retour d'état visuel en temps réel sur l'écran.
 - 🎧 **Plugin Discord :** Mute / Unmute du microphone, Deafen (rendre sourd) et raccourcis vocaux instantanés.
 - ⌨️ **Touches Multimédias & Macros Windows :** Play/Pause Spotify, contrôle du volume (+ / - / mute), lancement d'applications en 1 clic et frappe de raccourcis complexes (`Ctrl+Shift+...`).

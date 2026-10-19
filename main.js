@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu, powerMonitor, nativeImage } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, powerMonitor, nativeImage, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const configStore = require('./src/backend/config-store');
 const serialManager = require('./src/backend/serial-manager');
 const wsServer = require('./src/backend/websocket-server');
@@ -13,11 +14,11 @@ let isQuitting = false;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 840,
-    minWidth: 1024,
-    minHeight: 720,
-    backgroundColor: '#0b0f1a',
+    width: 1320,
+    height: 880,
+    minWidth: 1080,
+    minHeight: 740,
+    backgroundColor: '#070a12',
     title: 'CYD-Deck Studio — ESP32 Stream Deck Companion',
     icon: path.join(__dirname, 'src', 'renderer', 'icons', 'deck-icon.png'),
     webPreferences: {
@@ -38,7 +39,6 @@ function createWindow() {
 }
 
 function createTray() {
-  // Use a generated 16x16 icon or fallback
   const icon = nativeImage.createEmpty();
   tray = new Tray(icon);
   tray.setToolTip('CYD-Deck Studio — Actif');
@@ -64,6 +64,7 @@ function syncCYDCurrentPage() {
   const payload = {
     cmd: 'PAGE_SYNC',
     pageName: activePage.name,
+    profileName: configStore.get('activeProfile'),
     pageIndex: configStore.get('profiles')[configStore.get('activeProfile')].currentPage,
     buttons: activePage.buttons.map(b => ({
       id: b.id,
@@ -104,7 +105,7 @@ async function handleCYDTouchEvent(eventData) {
   // Execute button action
   await pluginManager.executeButtonAction(button);
 
-  // Sync back to CYD if navigation occurred
+  // Sync back to CYD
   syncCYDCurrentPage();
 }
 
@@ -150,7 +151,6 @@ app.whenReady().then(() => {
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('system-stats', stats);
     }
-    // Send lightweight stats to CYD every 2s
     const statsPayload = { cmd: 'STATS', cpu: stats.cpuUsage, ram: stats.memUsage };
     serialManager.send(statsPayload);
     wsServer.broadcast(statsPayload);
@@ -177,7 +177,6 @@ app.whenReady().then(() => {
     obsPlugin.connect(settings.obsAddress, settings.obsPassword).catch(() => {});
   }
 
-  // Forward OBS & Plugin events to UI & CYD
   obsPlugin.on('stateChanged', (obsState) => {
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('obs-status', { connected: obsPlugin.isConnected, state: obsState });
@@ -191,9 +190,16 @@ app.whenReady().then(() => {
     }
     syncCYDCurrentPage();
   });
+
+  pluginManager.on('profileChanged', (profileName) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('profile-changed', profileName);
+    }
+    syncCYDCurrentPage();
+  });
 });
 
-// IPC Handlers
+// IPC Handlers: Config & Actions
 ipcMain.handle('get-config', () => configStore.config);
 ipcMain.handle('save-config', (_, newConfig) => {
   configStore.config = newConfig;
@@ -201,9 +207,65 @@ ipcMain.handle('save-config', (_, newConfig) => {
   syncCYDCurrentPage();
   return { success: true };
 });
-
 ipcMain.handle('get-available-actions', () => pluginManager.getAllActions());
 
+// IPC Handlers: Profiles Management
+ipcMain.handle('profile-list', () => configStore.getProfilesList());
+ipcMain.handle('profile-create', (_, { name, template }) => {
+  const res = configStore.createProfile(name, template);
+  syncCYDCurrentPage();
+  return res;
+});
+ipcMain.handle('profile-switch', (_, name) => {
+  const res = configStore.switchProfile(name);
+  syncCYDCurrentPage();
+  return res;
+});
+ipcMain.handle('profile-duplicate', (_, { sourceName, newName }) => {
+  const res = configStore.duplicateProfile(sourceName, newName);
+  syncCYDCurrentPage();
+  return res;
+});
+ipcMain.handle('profile-delete', (_, name) => {
+  const res = configStore.deleteProfile(name);
+  syncCYDCurrentPage();
+  return res;
+});
+
+// IPC Handlers: Custom Icons
+ipcMain.handle('custom-icon-select-file', async () => {
+  if (!mainWindow) return null;
+  const result = await dialog.showOpenDialog(mainWindow, {
+    title: 'Sélectionner une icône personnalisée',
+    filters: [
+      { name: 'Images', extensions: ['png', 'jpg', 'jpeg', 'svg', 'webp', 'gif'] }
+    ],
+    properties: ['openFile']
+  });
+
+  if (result.canceled || !result.filePaths || result.filePaths.length === 0) {
+    return null;
+  }
+
+  const filePath = result.filePaths[0];
+  const ext = path.extname(filePath).slice(1).toLowerCase();
+  const mimeType = ext === 'svg' ? 'image/svg+xml' : `image/${ext === 'jpg' ? 'jpeg' : ext}`;
+  const fileBuffer = fs.readFileSync(filePath);
+  const dataUrl = `data:${mimeType};base64,${fileBuffer.toString('base64')}`;
+  const baseName = path.basename(filePath, path.extname(filePath));
+
+  return configStore.addCustomIcon(baseName, dataUrl);
+});
+
+ipcMain.handle('custom-icon-save', (_, { name, dataUrl }) => {
+  return configStore.addCustomIcon(name, dataUrl);
+});
+
+ipcMain.handle('custom-icon-delete', (_, id) => {
+  return configStore.deleteCustomIcon(id);
+});
+
+// IPC Handlers: Serial & OBS
 ipcMain.handle('serial-list-ports', async () => await serialManager.listAvailablePorts());
 ipcMain.handle('serial-connect', async (_, portPath, baud) => {
   const result = await serialManager.connect(portPath, baud);
@@ -240,6 +302,7 @@ ipcMain.handle('obs-refresh', async () => {
   return obsPlugin.state;
 });
 
+// IPC Handlers: Execution & CYD
 ipcMain.handle('execute-button-action', async (_, button) => {
   const res = await pluginManager.executeButtonAction(button);
   syncCYDCurrentPage();
