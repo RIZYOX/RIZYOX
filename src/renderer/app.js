@@ -220,7 +220,8 @@ class CYDStudioApp {
       }
     });
 
-    window.cydDeck.onPageChanged((pageIdx) => {
+    window.cydDeck.onPageChanged(async (pageIdx) => {
+      this.config = await window.cydDeck.getConfig();
       this.renderPagesTabs();
       this.renderVirtualScreen();
       this.selectButton(0);
@@ -530,6 +531,32 @@ class CYDStudioApp {
           params: {}
         }))
       };
+      // Touche 6 (id: 5) configurée en Page Suivante
+      newPage.buttons[5] = {
+        id: 5,
+        label: 'PAGE SUIV.',
+        sub: 'Suivant ➡️',
+        icon: 'arrow-right',
+        bgColor: '#0369a1',
+        textColor: '#ffffff',
+        pluginId: 'internal',
+        action: 'next_page',
+        params: {}
+      };
+
+      // Touche 4 (id: 3) configurée en Page Précédente
+      newPage.buttons[3] = {
+        id: 3,
+        label: 'PAGE PRÉC.',
+        sub: '⬅️ Retour',
+        icon: 'arrow-left',
+        bgColor: '#0369a1',
+        textColor: '#ffffff',
+        pluginId: 'internal',
+        action: 'prev_page',
+        params: {}
+      };
+
       profile.pages.push(newPage);
       window.cydDeck.saveConfig(this.config);
       this.renderPagesTabs();
@@ -538,15 +565,15 @@ class CYDStudioApp {
 
     // ─── Navigation Presets (Inspector 1-click) ────────────────────────────
     this.presetNextPage.addEventListener('click', () => {
-      this.applyNavPreset('next_page', '➡️ Page Suivante', 'next_page');
+      this.applyNavPreset('next_page', 'PAGE SUIV.', 'Suivant ➡️', 'arrow-right', '#0369a1');
     });
 
     this.presetPrevPage.addEventListener('click', () => {
-      this.applyNavPreset('prev_page', '⬅️ Page Précédente', 'prev_page');
+      this.applyNavPreset('prev_page', 'PAGE PRÉC.', '⬅️ Retour', 'arrow-left', '#0369a1');
     });
 
     this.presetHomePage.addEventListener('click', () => {
-      this.applyNavPreset('home_page', '🏠 Accueil', 'home_page');
+      this.applyNavPreset('home_page', 'ACCUEIL 🏠', 'Page 1', 'star', '#1e3a8a');
     });
 
     // ─── App Settings Modal ───────────────────────────────────────────────
@@ -606,19 +633,34 @@ class CYDStudioApp {
     }
   }
 
-  // Applique un preset de navigation à la touche sélectionnée
-  applyNavPreset(action, label, actionKey) {
+  // Applique un preset de navigation à la touche sélectionnée et sauvegarde automatiquement
+  async applyNavPreset(actionKey, label, sub, iconKey, color) {
     this.inpBtnLabel.value = label;
-    this.inpBtnSub.value = 'Nav CYD';
+    this.inpBtnSub.value = sub;
+    this.selectedIcon = iconKey;
+    this.selectedColor = color || '#0369a1';
+    this.selectedBgImage = null;
+    this.btnNoIcon.classList.remove('active');
+
+    // Mettre à jour l'icône visuelle dans la grille
+    this.deselectAllIconChoices();
+    this.switchIconTab('builtin');
+    const iconEl = this.iconPickerGrid.querySelector(`[title="${iconKey}"]`);
+    if (iconEl) iconEl.classList.add('active');
+
+    // Mettre à jour la couleur dans le picker
+    this.inpCustomColor.value = this.selectedColor;
+    this.colorPresetsRow.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+
+    // Sélectionner le plugin internal et l'action
     this.selPlugin.value = 'internal';
-    this.handlePluginChange();
-    // Wait for DOM update then set action
-    setTimeout(() => {
-      this.selAction.value = actionKey;
-      this.handleActionChange();
-      this.updateLivePreview();
-    }, 50);
-    this.logTerminal(`[PRESET] Preset "${label}" appliqué — n\'oubliez pas de sauvegarder !`, 'info');
+    this.handlePluginChange(actionKey);
+
+    this.updateLivePreview();
+
+    // Sauvegarde immédiate pour que le CYD reçoive la touche instantanément
+    await this.saveCurrentButton();
+    this.logTerminal(`[NAV PRESET] Touche #${this.selectedButtonIndex + 1} configurée en "${label}" et synchronisée avec le CYD !`, 'info');
   }
 
   renderProfilesDropdown() {

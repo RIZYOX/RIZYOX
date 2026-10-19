@@ -49,6 +49,10 @@ class PluginManager extends EventEmitter {
         configStore.setCurrentPage(prevIdx);
         this.emit('pageChanged', prevIdx);
         return { success: true, pageIndex: prevIdx };
+      } else if (action === 'home_page' && profile) {
+        configStore.setCurrentPage(0);
+        this.emit('pageChanged', 0);
+        return { success: true, pageIndex: 0 };
       } else if (action === 'go_to_page') {
         const targetIdx = parseInt(params.pageIndex, 10) || 0;
         configStore.setCurrentPage(targetIdx);
@@ -95,6 +99,7 @@ class PluginManager extends EventEmitter {
       actions: [
         { id: 'next_page', label: 'Page Suivante ➡️', params: [] },
         { id: 'prev_page', label: 'Page Précédente ⬅️', params: [] },
+        { id: 'home_page', label: 'Page Accueil 🏠', params: [] },
         { id: 'go_to_page', label: 'Aller à la page...', params: [{ name: 'pageIndex', type: 'number', placeholder: 'Numéro de page' }] },
         { id: 'switch_profile', label: 'Changer de Profil...', params: [{ name: 'profileName', type: 'select', options: profilesList }] }
       ]
