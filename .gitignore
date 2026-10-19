@@ -13,3 +13,10 @@ package-lock.json
 *.log
 .DS_Store
 Thumbs.db
+
+# Electron local cache (redirect from Windows AppData to avoid permission errors)
+.electron-data/
+
+# Build artifacts
+dist/
+*.exe

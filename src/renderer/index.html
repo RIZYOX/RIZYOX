@@ -21,9 +21,16 @@
         </div>
         <div class="titlebar-center-pill">
           <span class="titlebar-dot"></span>
-          <span id="titlebarActiveProfileName">🔴 Streaming & Live</span>
+          <span id="titlebarActiveProfileName">🔴 Streaming &amp; Live</span>
         </div>
       </div>
+      <!-- Settings button in titlebar -->
+      <button class="titlebar-settings-btn" id="btnOpenSettings" title="Paramètres de l'application">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
       <!-- Right area reserved for native Windows titlebar overlay buttons -->
       <div class="titlebar-window-controls-spacer"></div>
     </div>
@@ -370,6 +377,60 @@
       <div class="modal-footer">
         <button class="btn-secondary" id="btnCancelObs">Annuler</button>
         <button class="btn-primary" id="btnSaveConnectObs">Enregistrer &amp; Connecter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PARAMÈTRES APP -->
+  <div class="modal-backdrop" id="settingsModal" style="display: none;">
+    <div class="modal-card settings-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ Paramètres de l'Application</h3>
+        <button class="modal-close-btn" id="btnCloseSettingsModal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <!-- LAUNCH MODE -->
+        <div class="settings-section">
+          <h4 class="settings-section-title">🚀 Mode de lancement</h4>
+          <p class="modal-desc">Définit comment CYD-Deck Studio s'ouvre au démarrage.</p>
+          <div class="settings-launch-pills">
+            <button class="settings-pill" id="launchNormal" data-mode="normal">
+              <span class="pill-icon">□</span>
+              <span class="pill-label">Normal</span>
+              <span class="pill-sub">Fenêtre standard</span>
+            </button>
+            <button class="settings-pill" id="launchMaximized" data-mode="maximized">
+              <span class="pill-icon">⛶</span>
+              <span class="pill-label">Plein écran</span>
+              <span class="pill-sub">Maximisé au démarrage</span>
+            </button>
+            <button class="settings-pill" id="launchMinimized" data-mode="minimized">
+              <span class="pill-icon">−</span>
+              <span class="pill-label">Réduit</span>
+              <span class="pill-sub">Lance dans la barre system</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- AUTO-START -->
+        <div class="settings-section">
+          <h4 class="settings-section-title">⏰ Démarrage automatique avec Windows</h4>
+          <p class="modal-desc">Lance CYD-Deck Studio automatiquement quand Windows démarre.</p>
+          <div class="settings-toggle-row">
+            <label class="toggle-switch">
+              <input type="checkbox" id="chkAutoStart">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="autoStartLabel">Désactivé</span>
+          </div>
+        </div>
+
+        <div class="settings-status-msg" id="settingsStatusMsg"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnCloseSettingsFooter">Fermer</button>
+        <button class="btn-primary" id="btnSaveSettings">💾 Sauvegarder</button>
       </div>
     </div>
   </div>

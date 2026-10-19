@@ -35,6 +35,14 @@ contextBridge.exposeInMainWorld('cydDeck', {
   syncCYD: () => ipcRenderer.invoke('cyd-sync-page'),
   setBrightness: (val) => ipcRenderer.invoke('cyd-set-brightness', val),
 
+  // App Settings (launch mode, auto-start)
+  getAppSettings: () => ipcRenderer.invoke('get-app-settings'),
+  setLaunchMode: (mode) => ipcRenderer.invoke('set-launch-mode', mode),
+  setAutoStart: (enabled) => ipcRenderer.invoke('set-auto-start', enabled),
+  windowShow: () => ipcRenderer.invoke('window-show'),
+  windowMinimize: () => ipcRenderer.invoke('window-minimize'),
+  windowMaximize: () => ipcRenderer.invoke('window-maximize'),
+
   // Events from Main Process
   onSerialStatus: (callback) => ipcRenderer.on('serial-status', (_, data) => callback(data)),
   onOBSStatus: (callback) => ipcRenderer.on('obs-status', (_, data) => callback(data)),

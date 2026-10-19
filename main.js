@@ -1,6 +1,14 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu, powerMonitor, nativeImage, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+
+// ─── Singleton: prevent multiple instances ────────────────────────────────────
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  console.log('[Main] Une instance est déjà en cours. Fermeture.');
+  app.quit();
+  process.exit(0);
+}
 const configStore = require('./src/backend/config-store');
 const serialManager = require('./src/backend/serial-manager');
 const wsServer = require('./src/backend/websocket-server');
@@ -12,8 +20,14 @@ let mainWindow = null;
 let tray = null;
 let isQuitting = false;
 
+// Redirect Electron cache to a local folder (avoids Windows permission errors)
+app.setPath('userData', path.join(__dirname, '.electron-data'));
+
 function createWindow() {
   Menu.setApplicationMenu(null);
+
+  const appSettings = configStore.get('settings') || {};
+  const launchMode = appSettings.launchMode || 'normal';
 
   mainWindow = new BrowserWindow({
     width: 1340,
@@ -30,6 +44,7 @@ function createWindow() {
       height: 38
     },
     autoHideMenuBar: true,
+    show: launchMode !== 'minimized',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -39,10 +54,29 @@ function createWindow() {
 
   mainWindow.loadFile(path.join(__dirname, 'src', 'renderer', 'index.html'));
 
+  mainWindow.once('ready-to-show', () => {
+    if (launchMode === 'maximized') {
+      mainWindow.maximize();
+      mainWindow.show();
+    } else if (launchMode === 'minimized') {
+      // stays hidden, shows in tray only
+    } else {
+      mainWindow.show();
+    }
+  });
+
   mainWindow.on('close', (event) => {
     if (!isQuitting) {
       event.preventDefault();
       mainWindow.hide();
+    }
+  });
+
+  // Focus existing window if second instance tries to launch
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized() || !mainWindow.isVisible()) mainWindow.show();
+      mainWindow.focus();
     }
   });
 }
@@ -350,4 +384,38 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+// ─── IPC: App Settings (launch mode, auto-start) ─────────────────────────────
+ipcMain.handle('get-app-settings', () => {
+  const s = configStore.get('settings') || {};
+  const loginItem = app.getLoginItemSettings();
+  return {
+    launchMode: s.launchMode || 'normal',
+    autoStart: loginItem.openAtLogin
+  };
+});
+
+ipcMain.handle('set-launch-mode', (_, mode) => {
+  const s = configStore.get('settings') || {};
+  s.launchMode = mode; // 'normal' | 'maximized' | 'minimized'
+  configStore.set('settings', s);
+  return { success: true };
+});
+
+ipcMain.handle('set-auto-start', (_, enabled) => {
+  app.setLoginItemSettings({
+    openAtLogin: enabled,
+    name: 'CYD-Deck Studio',
+    path: process.execPath
+  });
+  return { success: true, enabled };
+});
+
+ipcMain.handle('window-show', () => { if (mainWindow) mainWindow.show(); });
+ipcMain.handle('window-minimize', () => { if (mainWindow) mainWindow.minimize(); });
+ipcMain.handle('window-maximize', () => {
+  if (!mainWindow) return;
+  if (mainWindow.isMaximized()) mainWindow.unmaximize();
+  else mainWindow.maximize();
 });

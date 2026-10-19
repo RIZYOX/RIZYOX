@@ -76,9 +76,19 @@ cd RIZYOX
 # 2. Installer les dépendances
 npm install
 
-# 3. Lancer l'application de bureau
+# 3. Lancer l'application de bureau en mode dev
 npm start
+
+# 4. Compiler l'installateur Windows (.exe) autonome
+npm run dist
+# L'exécutable est généré dans : dist/CYD-Deck Studio Setup 1.0.0.exe
 ```
+
+### ⚙️ Paramètres de l'Application
+Accédez au menu **⚙️ Paramètres** en haut à droite pour :
+- **Mode de lancement :** Normal, **Plein écran** (maximisé automatique) ou **Réduit** (dans la barre d'état/systray).
+- **Démarrage automatique :** Option ON/OFF pour lancer l'application avec Windows.
+
 
 ### 2. Flasher l'ESP32 CYD
 

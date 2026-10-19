@@ -11,10 +11,30 @@ class StreamDeckWSServer extends EventEmitter {
 
   start(port = 8765) {
     this.port = port;
-    try {
-      this.wss = new WebSocketServer({ port: this.port });
+    this._tryStart(port);
+  }
 
-      this.wss.on('connection', (ws, req) => {
+  _tryStart(port) {
+    this.port = port;
+    this.wss = new WebSocketServer({ port });
+
+    this.wss.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.warn(`[WebSocket] Port ${port} déjà utilisé, tentative sur ${port + 1}...`);
+        this.wss.close();
+        this.wss = null;
+        this._tryStart(port + 1);
+      } else {
+        console.error(`[WebSocket] Erreur serveur:`, err.message);
+      }
+    });
+
+    this.wss.on('listening', () => {
+      this.port = port;
+      console.log(`[WebSocket] Serveur actif sur ws://0.0.0.0:${this.port}`);
+    });
+
+    this.wss.on('connection', (ws, req) => {
         const clientIp = req.socket.remoteAddress;
         console.log(`[WebSocket] Client CYD/Web connecté: ${clientIp}`);
         this.clients.add(ws);
@@ -39,14 +59,8 @@ class StreamDeckWSServer extends EventEmitter {
           console.error('[WebSocket] Error:', err.message);
         });
 
-        // Send welcome / ready ping
         ws.send(JSON.stringify({ cmd: 'HANDSHAKE', status: 'ready', server: 'CYD-Deck Studio' }));
-      });
-
-      console.log(`[WebSocket] Serveur actif sur ws://0.0.0.0:${this.port}`);
-    } catch (err) {
-      console.error(`[WebSocket] Failed to start server on port ${this.port}:`, err.message);
-    }
+    });
   }
 
   stop() {

@@ -1508,3 +1508,162 @@ body {
 .btn-nav-preset:active {
   transform: translateY(0);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TITLEBAR SETTINGS BUTTON
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.titlebar-settings-btn {
+  -webkit-app-region: no-drag;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+.titlebar-settings-btn:hover {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.25);
+  color: var(--text-primary);
+  transform: rotate(30deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SETTINGS MODAL — Launch mode, Auto-start
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.settings-modal-card {
+  width: 480px;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: rgba(14, 20, 36, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.settings-section-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+/* Launch mode pills */
+.settings-launch-pills {
+  display: flex;
+  gap: 10px;
+}
+
+.settings-pill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-ui);
+}
+.settings-pill:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.08);
+}
+.settings-pill.active {
+  border-color: var(--accent-blue);
+  background: rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.25);
+}
+.pill-icon {
+  font-size: 1.4rem;
+  color: var(--accent-cyan);
+}
+.pill-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.pill-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Toggle switch */
+.settings-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border-color);
+  border-radius: 26px;
+  transition: background 0.25s ease;
+}
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.toggle-switch input:checked + .toggle-slider {
+  background: rgba(34, 197, 94, 0.3);
+  border: 1px solid var(--accent-green);
+}
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+  background: var(--accent-green);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.toggle-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.settings-status-msg {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  min-height: 20px;
+  text-align: center;
+  color: var(--accent-green);
+}

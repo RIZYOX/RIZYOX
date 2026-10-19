@@ -4,10 +4,42 @@
   "description": "Next-Gen ESP32 CYD (Cheap Yellow Display) Stream Deck Companion & Ecosystem in Electron",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "dev": "electron . --dev",
+    "start": "electron . --disable-gpu-shader-disk-cache",
+    "dev": "electron . --dev --disable-gpu-shader-disk-cache",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.rizyox.cyd-deck-studio",
+    "productName": "CYD-Deck Studio",
+    "copyright": "Copyright © 2026 RIZYOX",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "src/renderer/icons/logo-emblem.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CYD-Deck Studio"
+    },
+    "files": [
+      "**/*",
+      "!.electron-data",
+      "!.git",
+      "!dist"
+    ]
   },
   "keywords": [
     "esp32",
@@ -29,6 +61,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "electron": "^41.2.0"
+    "electron": "^41.2.0",
+    "electron-builder": "^26.15.3"
   }
 }

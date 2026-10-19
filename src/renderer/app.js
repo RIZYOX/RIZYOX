@@ -49,6 +49,7 @@ class CYDStudioApp {
     this.selectedColor = '#1e3a8a';
     this.selectedBgImage = null;
     this.bgOverlay = 40;
+    this._currentLaunchMode = 'normal';
 
     this.initElements();
     this.initEvents();
@@ -150,6 +151,17 @@ class CYDStudioApp {
     this.inpObsAddress = document.getElementById('inpObsAddress');
     this.inpObsPassword = document.getElementById('inpObsPassword');
     this.obsModalFeedback = document.getElementById('obsModalFeedback');
+
+    // App Settings Modal
+    this.btnOpenSettings = document.getElementById('btnOpenSettings');
+    this.settingsModal = document.getElementById('settingsModal');
+    this.btnCloseSettingsModal = document.getElementById('btnCloseSettingsModal');
+    this.btnCloseSettingsFooter = document.getElementById('btnCloseSettingsFooter');
+    this.btnSaveSettings = document.getElementById('btnSaveSettings');
+    this.launchPills = document.querySelectorAll('.settings-pill');
+    this.chkAutoStart = document.getElementById('chkAutoStart');
+    this.autoStartLabel = document.getElementById('autoStartLabel');
+    this.settingsStatusMsg = document.getElementById('settingsStatusMsg');
   }
 
   async start() {
@@ -536,6 +548,62 @@ class CYDStudioApp {
     this.presetHomePage.addEventListener('click', () => {
       this.applyNavPreset('home_page', '🏠 Accueil', 'home_page');
     });
+
+    // ─── App Settings Modal ───────────────────────────────────────────────
+    if (this.btnOpenSettings) {
+      this.btnOpenSettings.addEventListener('click', async () => {
+        try {
+          const s = await window.cydDeck.getAppSettings();
+          this._currentLaunchMode = s.launchMode || 'normal';
+          this.launchPills.forEach(p => {
+            p.classList.toggle('active', p.dataset.mode === this._currentLaunchMode);
+          });
+          this.chkAutoStart.checked = !!s.autoStart;
+          this.autoStartLabel.textContent = s.autoStart ? 'Activé — Lance au démarrage Windows' : 'Désactivé';
+          this.settingsStatusMsg.textContent = '';
+          this.settingsModal.style.display = 'flex';
+        } catch (err) {
+          console.error('Erreur chargement paramètres:', err);
+        }
+      });
+    }
+
+    if (this.launchPills) {
+      this.launchPills.forEach(p => {
+        p.addEventListener('click', () => {
+          this._currentLaunchMode = p.dataset.mode;
+          this.launchPills.forEach(x => x.classList.remove('active'));
+          p.classList.add('active');
+        });
+      });
+    }
+
+    if (this.chkAutoStart) {
+      this.chkAutoStart.addEventListener('change', () => {
+        this.autoStartLabel.textContent = this.chkAutoStart.checked ? 'Activé — Lance au démarrage Windows' : 'Désactivé';
+      });
+    }
+
+    const closeSettings = () => {
+      if (this.settingsModal) this.settingsModal.style.display = 'none';
+    };
+    if (this.btnCloseSettingsModal) this.btnCloseSettingsModal.addEventListener('click', closeSettings);
+    if (this.btnCloseSettingsFooter) this.btnCloseSettingsFooter.addEventListener('click', closeSettings);
+
+    if (this.btnSaveSettings) {
+      this.btnSaveSettings.addEventListener('click', async () => {
+        try {
+          await window.cydDeck.setLaunchMode(this._currentLaunchMode);
+          await window.cydDeck.setAutoStart(this.chkAutoStart.checked);
+          this.settingsStatusMsg.textContent = '✅ Paramètres enregistrés ! (Appliqué au prochain lancement)';
+          this.settingsStatusMsg.style.color = '#22c55e';
+          setTimeout(closeSettings, 1200);
+        } catch (err) {
+          this.settingsStatusMsg.textContent = '❌ Erreur: ' + err.message;
+          this.settingsStatusMsg.style.color = '#ef4444';
+        }
+      });
+    }
   }
 
   // Applique un preset de navigation à la touche sélectionnée
