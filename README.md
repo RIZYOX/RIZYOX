@@ -125,7 +125,7 @@ Hey, I'm **RIZYOX** — 18-year-old French IT student and self-taught developer 
 <tr>
 <td width="36%" align="center" valign="middle">
   <a href="./lan-topology-visualizer" target="_blank">
-    <img src="./assets/projects/net-topology.png" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="NetTopology LAN Visualizer"/>
+    <img src="./assets/projects/net-topology-preview.png" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="NetTopology LAN Visualizer"/>
   </a>
 </td>
 <td width="64%" valign="top">
