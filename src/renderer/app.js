@@ -869,8 +869,13 @@ class CYDStudioApp {
         <div class="cyd-btn-sub">${btnData.sub || ''}</div>
       `;
 
+      // Clic = Sélectionne la touche pour modification dans l'inspecteur (ne déclenche pas l'action)
       btnEl.addEventListener('click', () => {
         this.selectButton(idx);
+      });
+
+      // Double-clic = Permet de tester l'action depuis le simulateur
+      btnEl.addEventListener('dblclick', () => {
         this.testVirtualButton(idx, btnData);
       });
 

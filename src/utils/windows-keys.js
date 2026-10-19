@@ -27,21 +27,15 @@ class WindowsKeyController {
       return Promise.reject(new Error(`Unknown media key: ${action}`));
     }
 
-    const psCommand = `Add-Type -TypeDefinition @"
-using System;
-using System.Runtime.InteropServices;
-public class WinMedia {
-    [DllImport("user32.dll")]
-    public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
-    public static void Tap(byte vk) {
-        keybd_event(vk, 0, 0, UIntPtr.Zero);
-        keybd_event(vk, 0, 2, UIntPtr.Zero);
-    }
-}
-"@; [WinMedia]::Tap(${vkCode})`;
+    const script = `
+Add-Type -MemberDefinition '[DllImport("user32.dll")] public static extern void keybd_event(byte b, byte s, int f, int e);' -Name 'K' -Namespace 'WinMedia' -ErrorAction SilentlyContinue
+[WinMedia.K]::keybd_event(${vkCode}, 0, 0, 0)
+[WinMedia.K]::keybd_event(${vkCode}, 0, 2, 0)
+`;
+    const encoded = Buffer.from(script, 'utf16le').toString('base64');
 
     return new Promise((resolve) => {
-      exec(`powershell -NoProfile -NonInteractive -Command "${psCommand.replace(/\n/g, ' ')}"`, (err) => {
+      exec(`powershell -NoProfile -NonInteractive -EncodedCommand ${encoded}`, (err) => {
         if (err) {
           console.error(`[KeyController] Failed to send media key ${action}:`, err.message);
         }
