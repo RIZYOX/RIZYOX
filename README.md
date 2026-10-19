@@ -122,21 +122,21 @@ Hey, I'm **RIZYOX** — 18-year-old French IT student and self-taught developer 
 <br/><br/>
 
 <table>
-<tr>
 <td width="36%" align="center" valign="middle">
-  <a href="./lan-topology-visualizer" target="_blank">
-    <img src="./assets/projects/net-topology-preview.png" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="NetTopology LAN Visualizer"/>
+  <a href="https://github.com/RIZYOX/CYD-ESP32-STREAM-DECK" target="_blank">
+    <img src="./assets/projects/cyd-deck-preview.png" width="100%" style="border-radius: 8px; border: 1px solid #1e293b;" alt="CYD-Deck Studio"/>
   </a>
 </td>
 <td width="64%" valign="top">
 
-**[NetTopology — LAN Visualizer](./lan-topology-visualizer)** &nbsp; ![NETWORK](https://img.shields.io/badge/NETWORK-3b82f6?style=flat-square) &nbsp; ![LIVE](https://img.shields.io/badge/AUTO--DISCOVERY-22c55e?style=flat-square)
+**[CYD-Deck Studio](https://github.com/RIZYOX/CYD-ESP32-STREAM-DECK)** &nbsp; ![ESP32](https://img.shields.io/badge/ESP32-E7352C?style=flat-square) &nbsp; ![ELECTRON](https://img.shields.io/badge/ELECTRON-47848F?style=flat-square) &nbsp; ![STREAM DECK](https://img.shields.io/badge/STREAM--DECK-8b5cf6?style=flat-square)
 
-Interactive 60 FPS Canvas 2D engine that auto-detects and visualizes local networks (LAN) and homelab clusters in real time. Features animated traffic packets, VLAN filtering, and live ICMP diagnostics.
+Next-gen ESP32 CYD touchscreen stream deck companion. Electron app with OBS WebSocket v5, Discord global hotkeys, Voicemod & Streamlabs integration, Wi-Fi WebSocket and USB serial.
 
-`Canvas 2D` `Node.js` `Vanilla JS` `Networking` `ARP Scanner`
+`Electron` `Node.js` `C++ ESP32` `OBS` `Discord` `Voicemod`
 
 </td>
+</tr>
 </tr>
 
 <tr>
