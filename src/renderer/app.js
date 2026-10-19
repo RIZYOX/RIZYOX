@@ -1,6 +1,6 @@
 /**
  * CYD-Deck Studio — Renderer App Controller
- * With Multi-Profile Support & Custom Icon Uploader
+ * With Multi-Profile, Custom Icons, No-Icon Mode & Custom Background Images
  */
 
 // Expanded SVG Icon Catalog
@@ -47,6 +47,8 @@ class CYDStudioApp {
     this.selectedButtonIndex = 0;
     this.selectedIcon = 'record';
     this.selectedColor = '#1e3a8a';
+    this.selectedBgImage = null;
+    this.bgOverlay = 40;
 
     this.initElements();
     this.initEvents();
@@ -88,6 +90,9 @@ class CYDStudioApp {
     this.inspectorPageTag = document.getElementById('inspectorPageTag');
     this.inpBtnLabel = document.getElementById('inpBtnLabel');
     this.inpBtnSub = document.getElementById('inpBtnSub');
+
+    // Icon Selector & No-Icon
+    this.btnNoIcon = document.getElementById('btnNoIcon');
     this.btnUploadCustomIcon = document.getElementById('btnUploadCustomIcon');
     this.tabBuiltinIcons = document.getElementById('tabBuiltinIcons');
     this.tabCustomIcons = document.getElementById('tabCustomIcons');
@@ -95,8 +100,23 @@ class CYDStudioApp {
     this.iconPickerGrid = document.getElementById('iconPickerGrid');
     this.customIconsGrid = document.getElementById('customIconsGrid');
 
+    // Background Mode (Color vs Custom Image)
+    this.btnBgModeColor = document.getElementById('btnBgModeColor');
+    this.btnBgModeImage = document.getElementById('btnBgModeImage');
+    this.bgModeColorSection = document.getElementById('bgModeColorSection');
+    this.bgModeImageSection = document.getElementById('bgModeImageSection');
     this.colorPresetsRow = document.getElementById('colorPresetsRow');
     this.inpCustomColor = document.getElementById('inpCustomColor');
+
+    this.bgPreviewThumb = document.getElementById('bgPreviewThumb');
+    this.noBgText = document.getElementById('noBgText');
+    this.bgImgElement = document.getElementById('bgImgElement');
+    this.btnSelectBgImage = document.getElementById('btnSelectBgImage');
+    this.btnRemoveBgImage = document.getElementById('btnRemoveBgImage');
+    this.bgOverlaySlider = document.getElementById('bgOverlaySlider');
+    this.bgOverlayVal = document.getElementById('bgOverlayVal');
+
+    // Plugins & Actions
     this.selPlugin = document.getElementById('selPlugin');
     this.selAction = document.getElementById('selAction');
     this.dynamicParamsContainer = document.getElementById('dynamicParamsContainer');
@@ -181,7 +201,7 @@ class CYDStudioApp {
       this.renderPagesTabs();
       this.renderVirtualScreen();
       this.selectButton(0);
-      this.logTerminal(`[CYD NAV] Navigation automatique vers Page ${pageIdx + 1}`, 'info');
+      this.logTerminal(`[CYD NAV] Navigation vers Page ${pageIdx + 1}`, 'info');
     });
 
     window.cydDeck.onProfileChanged(async (profileName) => {
@@ -193,7 +213,7 @@ class CYDStudioApp {
       this.logTerminal(`[CYD PROFIL] Profil changé vers "${profileName}"`, 'info');
     });
 
-    // Profile Selector in Header
+    // Profile Dropdown
     this.selProfile.addEventListener('change', async (e) => {
       const selected = e.target.value;
       await window.cydDeck.switchProfile(selected);
@@ -268,12 +288,22 @@ class CYDStudioApp {
       }
     });
 
+    // No Icon Mode Toggle
+    this.btnNoIcon.addEventListener('click', () => {
+      this.selectedIcon = 'none';
+      this.btnNoIcon.classList.add('active');
+      this.deselectAllIconChoices();
+      this.updateLivePreview();
+      this.logTerminal('[ICÔNE] Mode sans icône activé (Texte seul).', 'info');
+    });
+
     // Custom Icon Uploader
     this.btnUploadCustomIcon.addEventListener('click', async () => {
       const newIcon = await window.cydDeck.selectIconFile();
       if (newIcon) {
         this.config = await window.cydDeck.getConfig();
         this.selectedIcon = newIcon.id;
+        this.btnNoIcon.classList.remove('active');
         this.renderIconPickers();
         this.switchIconTab('custom');
         this.updateLivePreview();
@@ -284,11 +314,51 @@ class CYDStudioApp {
     this.tabBuiltinIcons.addEventListener('click', () => this.switchIconTab('builtin'));
     this.tabCustomIcons.addEventListener('click', () => this.switchIconTab('custom'));
 
-    // Inspector events
-    this.selPlugin.addEventListener('change', () => this.handlePluginChange());
-    this.selAction.addEventListener('change', () => this.handleActionChange());
-    this.btnSaveButtonConfig.addEventListener('click', () => this.saveCurrentButton());
-    this.btnTestButtonAction.addEventListener('click', () => this.testCurrentAction());
+    // Background Mode Selector (Color vs Custom Image)
+    this.btnBgModeColor.addEventListener('click', () => {
+      this.btnBgModeColor.classList.add('active');
+      this.btnBgModeImage.classList.remove('active');
+      this.bgModeColorSection.style.display = 'block';
+      this.bgModeImageSection.style.display = 'none';
+      this.selectedBgImage = null;
+      this.updateLivePreview();
+    });
+
+    this.btnBgModeImage.addEventListener('click', () => {
+      this.btnBgModeImage.classList.add('active');
+      this.btnBgModeColor.classList.remove('active');
+      this.bgModeImageSection.style.display = 'block';
+      this.bgModeColorSection.style.display = 'none';
+      this.updateLivePreview();
+    });
+
+    this.btnSelectBgImage.addEventListener('click', async () => {
+      const file = await window.cydDeck.selectIconFile();
+      if (file && file.dataUrl) {
+        this.selectedBgImage = file.dataUrl;
+        this.bgImgElement.src = this.selectedBgImage;
+        this.bgImgElement.style.display = 'block';
+        this.noBgText.style.display = 'none';
+        this.btnRemoveBgImage.style.display = 'block';
+        this.updateLivePreview();
+        this.logTerminal('[FOND] Image d\'arrière-plan définie pour la touche.', 'info');
+      }
+    });
+
+    this.btnRemoveBgImage.addEventListener('click', () => {
+      this.selectedBgImage = null;
+      this.bgImgElement.src = '';
+      this.bgImgElement.style.display = 'none';
+      this.noBgText.style.display = 'block';
+      this.btnRemoveBgImage.style.display = 'none';
+      this.updateLivePreview();
+    });
+
+    this.bgOverlaySlider.addEventListener('input', (e) => {
+      this.bgOverlay = parseInt(e.target.value, 10);
+      this.bgOverlayVal.textContent = `${this.bgOverlay}%`;
+      this.updateLivePreview();
+    });
 
     // Color Pickers
     this.colorPresetsRow.querySelectorAll('.color-dot').forEach(dot => {
@@ -297,6 +367,7 @@ class CYDStudioApp {
         dot.classList.add('active');
         this.selectedColor = dot.getAttribute('data-color');
         this.inpCustomColor.value = this.selectedColor;
+        this.selectedBgImage = null;
         this.updateLivePreview();
       });
     });
@@ -304,11 +375,18 @@ class CYDStudioApp {
     this.inpCustomColor.addEventListener('input', (e) => {
       this.selectedColor = e.target.value;
       this.colorPresetsRow.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+      this.selectedBgImage = null;
       this.updateLivePreview();
     });
 
     this.inpBtnLabel.addEventListener('input', () => this.updateLivePreview());
     this.inpBtnSub.addEventListener('input', () => this.updateLivePreview());
+
+    // Plugin & Action Change
+    this.selPlugin.addEventListener('change', () => this.handlePluginChange());
+    this.selAction.addEventListener('change', () => this.handleActionChange());
+    this.btnSaveButtonConfig.addEventListener('click', () => this.saveCurrentButton());
+    this.btnTestButtonAction.addEventListener('click', () => this.testCurrentAction());
 
     // Hardware buttons
     this.btnConnectSerial.addEventListener('click', async () => {
@@ -363,7 +441,7 @@ class CYDStudioApp {
       }
     });
 
-    // Add Page in Profile
+    // Add Page
     this.btnAddPage.addEventListener('click', () => {
       const profile = this.config.profiles[this.config.activeProfile];
       const newPageIdx = profile.pages.length;
@@ -416,7 +494,6 @@ class CYDStudioApp {
   }
 
   renderIconPickers() {
-    // 1. Built-in Icons Grid
     this.iconPickerGrid.innerHTML = '';
     for (const [key, svg] of Object.entries(ICONS)) {
       const item = document.createElement('div');
@@ -424,6 +501,7 @@ class CYDStudioApp {
       item.innerHTML = svg;
       item.title = key;
       item.addEventListener('click', () => {
+        this.btnNoIcon.classList.remove('active');
         this.deselectAllIconChoices();
         item.classList.add('active');
         this.selectedIcon = key;
@@ -432,7 +510,6 @@ class CYDStudioApp {
       this.iconPickerGrid.appendChild(item);
     }
 
-    // 2. Custom Icons Grid
     const customList = this.config.customIcons || [];
     this.customIconsCount.textContent = customList.length;
     this.customIconsGrid.innerHTML = '';
@@ -440,7 +517,7 @@ class CYDStudioApp {
     if (customList.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'empty-custom-icons';
-      empty.textContent = 'Aucune image importée. Cliquez sur "📁 Importer Image" pour ajouter vos logos !';
+      empty.textContent = 'Aucune image importée. Cliquez sur "📁 Importer Logo" pour ajouter vos fichiers !';
       this.customIconsGrid.appendChild(empty);
     } else {
       customList.forEach(customIcon => {
@@ -466,6 +543,7 @@ class CYDStudioApp {
             }
             return;
           }
+          this.btnNoIcon.classList.remove('active');
           this.deselectAllIconChoices();
           item.classList.add('active');
           this.selectedIcon = customIcon.id;
@@ -511,7 +589,7 @@ class CYDStudioApp {
   }
 
   renderIconVisual(iconKey) {
-    if (!iconKey) return ICONS['square'];
+    if (!iconKey || iconKey === 'none') return '';
     if (iconKey.startsWith('custom_')) {
       const custom = (this.config.customIcons || []).find(i => i.id === iconKey);
       if (custom) {
@@ -528,14 +606,28 @@ class CYDStudioApp {
 
     activePage.buttons.forEach((btnData, idx) => {
       const btnEl = document.createElement('div');
-      btnEl.className = `cyd-button ${idx === this.selectedButtonIndex ? 'selected' : ''}`;
+      const isNoIcon = btnData.icon === 'none';
+      btnEl.className = `cyd-button ${idx === this.selectedButtonIndex ? 'selected' : ''} ${isNoIcon ? 'no-icon' : ''}`;
       btnEl.id = `virtualBtn_${idx}`;
-      btnEl.style.backgroundColor = btnData.bgColor || '#1e293b';
       btnEl.style.color = btnData.textColor || '#ffffff';
 
+      // Background Handling: Image vs Color
+      if (btnData.bgImage) {
+        btnEl.classList.add('has-bg-img');
+        const overlay = (btnData.bgOverlay !== undefined ? btnData.bgOverlay : 40) / 100;
+        btnEl.style.backgroundImage = `linear-gradient(rgba(0,0,0,${overlay}), rgba(0,0,0,${overlay})), url('${btnData.bgImage}')`;
+      } else {
+        btnEl.classList.remove('has-bg-img');
+        btnEl.style.backgroundImage = 'none';
+        btnEl.style.backgroundColor = btnData.bgColor || '#1e293b';
+      }
+
+      // Icon & Label Content
       const iconMarkup = this.renderIconVisual(btnData.icon);
+      const iconWrapper = isNoIcon ? '' : `<div class="cyd-btn-icon-wrapper">${iconMarkup}</div>`;
+
       btnEl.innerHTML = `
-        <div class="cyd-btn-icon-wrapper">${iconMarkup}</div>
+        ${iconWrapper}
         <div class="cyd-btn-label">${btnData.label || ''}</div>
         <div class="cyd-btn-sub">${btnData.sub || ''}</div>
       `;
@@ -566,23 +658,56 @@ class CYDStudioApp {
     this.inpBtnLabel.value = btnData.label || '';
     this.inpBtnSub.value = btnData.sub || '';
 
+    // Color
     this.selectedColor = btnData.bgColor || '#1e293b';
     this.inpCustomColor.value = this.selectedColor;
     this.colorPresetsRow.querySelectorAll('.color-dot').forEach(dot => {
       dot.classList.toggle('active', dot.getAttribute('data-color') === this.selectedColor);
     });
 
+    // Background Image
+    this.selectedBgImage = btnData.bgImage || null;
+    this.bgOverlay = btnData.bgOverlay !== undefined ? btnData.bgOverlay : 40;
+    this.bgOverlaySlider.value = this.bgOverlay;
+    this.bgOverlayVal.textContent = `${this.bgOverlay}%`;
+
+    if (this.selectedBgImage) {
+      this.btnBgModeImage.classList.add('active');
+      this.btnBgModeColor.classList.remove('active');
+      this.bgModeImageSection.style.display = 'block';
+      this.bgModeColorSection.style.display = 'none';
+      this.bgImgElement.src = this.selectedBgImage;
+      this.bgImgElement.style.display = 'block';
+      this.noBgText.style.display = 'none';
+      this.btnRemoveBgImage.style.display = 'block';
+    } else {
+      this.btnBgModeColor.classList.add('active');
+      this.btnBgModeImage.classList.remove('active');
+      this.bgModeColorSection.style.display = 'block';
+      this.bgModeImageSection.style.display = 'none';
+      this.bgImgElement.src = '';
+      this.bgImgElement.style.display = 'none';
+      this.noBgText.style.display = 'block';
+      this.btnRemoveBgImage.style.display = 'none';
+    }
+
+    // Icon Selection
     this.selectedIcon = btnData.icon || 'square';
     this.deselectAllIconChoices();
 
-    if (this.selectedIcon.startsWith('custom_')) {
-      this.switchIconTab('custom');
-      const found = this.customIconsGrid.querySelector(`[title="${this.selectedIcon}"]`);
-      if (found) found.classList.add('active');
+    if (this.selectedIcon === 'none') {
+      this.btnNoIcon.classList.add('active');
     } else {
-      this.switchIconTab('builtin');
-      const found = this.iconPickerGrid.querySelector(`[title="${this.selectedIcon}"]`);
-      if (found) found.classList.add('active');
+      this.btnNoIcon.classList.remove('active');
+      if (this.selectedIcon.startsWith('custom_')) {
+        this.switchIconTab('custom');
+        const found = this.customIconsGrid.querySelector(`[title="${this.selectedIcon}"]`);
+        if (found) found.classList.add('active');
+      } else {
+        this.switchIconTab('builtin');
+        const found = this.iconPickerGrid.querySelector(`[title="${this.selectedIcon}"]`);
+        if (found) found.classList.add('active');
+      }
     }
 
     this.selPlugin.value = btnData.pluginId || 'system';
@@ -660,11 +785,26 @@ class CYDStudioApp {
 
     const label = this.inpBtnLabel.value || '';
     const sub = this.inpBtnSub.value || '';
-    const iconMarkup = this.renderIconVisual(this.selectedIcon);
+    const isNoIcon = this.selectedIcon === 'none';
 
-    btnEl.style.backgroundColor = this.selectedColor;
+    btnEl.classList.toggle('no-icon', isNoIcon);
+
+    // Background Image vs Color
+    if (this.selectedBgImage) {
+      btnEl.classList.add('has-bg-img');
+      const overlay = (this.bgOverlay !== undefined ? this.bgOverlay : 40) / 100;
+      btnEl.style.backgroundImage = `linear-gradient(rgba(0,0,0,${overlay}), rgba(0,0,0,${overlay})), url('${this.selectedBgImage}')`;
+    } else {
+      btnEl.classList.remove('has-bg-img');
+      btnEl.style.backgroundImage = 'none';
+      btnEl.style.backgroundColor = this.selectedColor;
+    }
+
+    const iconMarkup = this.renderIconVisual(this.selectedIcon);
+    const iconWrapper = isNoIcon ? '' : `<div class="cyd-btn-icon-wrapper">${iconMarkup}</div>`;
+
     btnEl.innerHTML = `
-      <div class="cyd-btn-icon-wrapper">${iconMarkup}</div>
+      ${iconWrapper}
       <div class="cyd-btn-label">${label}</div>
       <div class="cyd-btn-sub">${sub}</div>
     `;
@@ -693,6 +833,8 @@ class CYDStudioApp {
       sub: this.inpBtnSub.value.trim(),
       icon: this.selectedIcon,
       bgColor: this.selectedColor,
+      bgImage: this.selectedBgImage || null,
+      bgOverlay: this.bgOverlay !== undefined ? this.bgOverlay : 40,
       textColor: '#ffffff',
       pluginId,
       action: actionId,

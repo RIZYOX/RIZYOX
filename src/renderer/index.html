@@ -159,13 +159,18 @@
             <input type="text" id="inpBtnSub" class="form-input" placeholder="Ex: Toggle, Live, 30s">
           </div>
 
-          <!-- ICON SELECTOR WITH CUSTOM IMPORT -->
+          <!-- ICON SELECTOR WITH CUSTOM IMPORT & NO-ICON -->
           <div class="form-group">
             <div class="label-with-action">
               <label class="form-label">Icône Visuelle</label>
-              <button class="btn-import-icon-sm" id="btnUploadCustomIcon">
-                📁 Importer Image
-              </button>
+              <div class="icon-header-actions">
+                <button class="btn-no-icon-sm" id="btnNoIcon" title="Afficher uniquement le texte sans icône">
+                  🚫 Pas d'icône
+                </button>
+                <button class="btn-import-icon-sm" id="btnUploadCustomIcon">
+                  📁 Importer Logo
+                </button>
+              </div>
             </div>
 
             <!-- TABS: Built-in vs Custom Icons -->
@@ -182,24 +187,53 @@
             <!-- CUSTOM USER ICONS GRID -->
             <div class="icon-picker-grid custom-icons-view" id="customIconsGrid" style="display: none;">
               <div class="empty-custom-icons" id="emptyCustomIconsMsg">
-                Aucune image importée. Cliquez sur "📁 Importer Image" pour ajouter des logos PNG, SVG ou JPG !
+                Aucune image importée. Cliquez sur "📁 Importer Logo" pour ajouter vos fichiers PNG, SVG ou JPG !
               </div>
             </div>
           </div>
 
-          <!-- COLOR PICKER -->
+          <!-- THEME DE FOND: COULEUR OU IMAGE PERSONNALISÉE -->
           <div class="form-group">
-            <label class="form-label">Couleur de fond & Thème</label>
-            <div class="color-presets-row" id="colorPresetsRow">
-              <button class="color-dot" data-color="#7f1d1d" style="background: #7f1d1d;" title="Rouge"></button>
-              <button class="color-dot" data-color="#1e3a8a" style="background: #1e3a8a;" title="Bleu"></button>
-              <button class="color-dot" data-color="#14532d" style="background: #14532d;" title="Vert"></button>
-              <button class="color-dot" data-color="#701a75" style="background: #701a75;" title="Violet"></button>
-              <button class="color-dot" data-color="#c2410c" style="background: #c2410c;" title="Orange"></button>
-              <button class="color-dot" data-color="#312e81" style="background: #312e81;" title="Indigo"></button>
-              <button class="color-dot" data-color="#1e293b" style="background: #1e293b;" title="Gris foncé"></button>
-              <button class="color-dot" data-color="#0f172a" style="background: #0f172a;" title="Onyx"></button>
-              <input type="color" id="inpCustomColor" class="custom-color-input" value="#1e3a8a" title="Couleur personnalisée">
+            <div class="label-with-action">
+              <label class="form-label">Thème de Fond de la Touche</label>
+              <div class="bg-mode-selector">
+                <button class="btn-mode-pill active" id="btnBgModeColor">🎨 Couleur</button>
+                <button class="btn-mode-pill" id="btnBgModeImage">🖼️ Image</button>
+              </div>
+            </div>
+
+            <!-- MODE 1: COULEUR UNIE -->
+            <div id="bgModeColorSection">
+              <div class="color-presets-row" id="colorPresetsRow">
+                <button class="color-dot" data-color="#7f1d1d" style="background: #7f1d1d;" title="Rouge"></button>
+                <button class="color-dot" data-color="#1e3a8a" style="background: #1e3a8a;" title="Bleu"></button>
+                <button class="color-dot" data-color="#14532d" style="background: #14532d;" title="Vert"></button>
+                <button class="color-dot" data-color="#701a75" style="background: #701a75;" title="Violet"></button>
+                <button class="color-dot" data-color="#c2410c" style="background: #c2410c;" title="Orange"></button>
+                <button class="color-dot" data-color="#312e81" style="background: #312e81;" title="Indigo"></button>
+                <button class="color-dot" data-color="#1e293b" style="background: #1e293b;" title="Gris foncé"></button>
+                <button class="color-dot" data-color="#0f172a" style="background: #0f172a;" title="Onyx"></button>
+                <input type="color" id="inpCustomColor" class="custom-color-input" value="#1e3a8a" title="Couleur personnalisée">
+              </div>
+            </div>
+
+            <!-- MODE 2: IMAGE DE FOND PERSONNALISÉE -->
+            <div id="bgModeImageSection" style="display: none;">
+              <div class="bg-image-upload-card" id="bgImageUploadCard">
+                <div class="bg-preview-thumbnail" id="bgPreviewThumb">
+                  <span class="no-bg-text" id="noBgText">Aucune image de fond</span>
+                  <img id="bgImgElement" src="" alt="Fond" style="display: none;" />
+                </div>
+                <div class="bg-image-actions">
+                  <button class="btn-sm btn-neon" id="btnSelectBgImage">📁 Choisir Image</button>
+                  <button class="btn-sm btn-outline danger" id="btnRemoveBgImage" style="display: none;">Retirer</button>
+                </div>
+              </div>
+              <div class="slider-subgroup">
+                <span class="subslider-label">Voile sombre (Lisibilité texte) :</span>
+                <input type="range" id="bgOverlaySlider" min="0" max="90" value="40" class="range-slider">
+                <span id="bgOverlayVal">40%</span>
+              </div>
             </div>
           </div>
 

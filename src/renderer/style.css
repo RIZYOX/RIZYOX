@@ -35,6 +35,27 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b #070a12;
+}
+
+/* Custom sleek cyberpunk scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070a12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
 }
 
 body {
@@ -491,6 +512,29 @@ body {
   outline-offset: 2px;
 }
 
+.cyd-button.no-icon {
+  justify-content: center;
+}
+
+.cyd-button.no-icon .cyd-btn-label {
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0 10px;
+  line-height: 1.25;
+}
+
+.cyd-button.no-icon .cyd-btn-sub {
+  margin-top: 6px;
+  font-size: 0.75rem;
+}
+
+.cyd-button.has-bg-img {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
 .cyd-btn-icon-wrapper {
   margin-bottom: 6px;
   display: flex;
@@ -681,6 +725,38 @@ body {
   letter-spacing: 0.04em;
 }
 
+.icon-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-no-icon-sm {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-no-icon-sm:hover {
+  border-color: var(--accent-red);
+  color: var(--text-primary);
+}
+
+.btn-no-icon-sm.active {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
 .btn-import-icon-sm {
   background: #1e293b;
   border: 1px dashed var(--accent-cyan);
@@ -698,6 +774,101 @@ body {
   background: rgba(6, 182, 212, 0.2);
   border-color: #fff;
   color: #fff;
+}
+
+/* Background Mode: Color vs Custom Image */
+.bg-mode-selector {
+  display: flex;
+  gap: 4px;
+  background: #090d16;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.btn-mode-pill {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-mode-pill:hover {
+  color: var(--text-primary);
+}
+
+.btn-mode-pill.active {
+  background: #1e293b;
+  color: var(--accent-cyan);
+  box-shadow: 0 0 6px rgba(6, 182, 212, 0.3);
+}
+
+.bg-image-upload-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #090d16;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+}
+
+.bg-preview-thumbnail {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  background: #131b2e;
+  border: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.bg-preview-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-bg-text {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px;
+  line-height: 1.2;
+}
+
+.bg-image-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.slider-subgroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.btn-outline.danger {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: var(--accent-red);
+}
+
+.btn-outline.danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: var(--accent-red);
 }
 
 /* Icon Subtabs */
